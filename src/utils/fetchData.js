@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 console.log('Base URL:', process.env.REACT_APP_BASE_URL);
-// Función para obtener datos de la API
+ 
 export const getDataAPI = async (url, token) => {
     const res = await axios.get(`${BASE_URL}/${url}`, {
         headers: { Authorization: token },
