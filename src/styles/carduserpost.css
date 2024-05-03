@@ -1,0 +1,23 @@
+r .container {
+    width: 100%;
+    overflow-x: auto;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .table th,
+  .table td {
+    padding: 8px;
+    border: 1px solid #ccc;
+  }
+  
+  @media (max-width: 600px) {
+    .table th,
+    .table td {
+      font-size: 14px;
+    }
+  }
+  

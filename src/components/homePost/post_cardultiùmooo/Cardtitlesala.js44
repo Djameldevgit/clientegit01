@@ -1,0 +1,41 @@
+
+import CardHeader from '@mui/material/CardHeader';
+
+//import Avatar from '@mui/material/Avatar';
+import Card from '@mui/material/Card';
+import Avatar from '../../Avatar';
+
+ 
+
+ 
+import { useSelector } from 'react-redux';
+ 
+const Cardtitlesala = ({ post }) => {
+  const { auth } = useSelector((state) => state);
+
+  const { content } = post
+  const avatarSrc = auth?.user?.avatar;
+  return (
+ 
+  
+    <div  >
+        <div   >
+            {avatarSrc && <Avatar src={avatarSrc}  />}
+        </div>
+   
+    <div className="user-info">
+        <span className="user-name">
+            { <strong>{content}</strong>}
+        </span>
+        
+       
+    </div>
+</div>
+   
+         
+  
+
+
+  )}
+        export default Cardtitlesala;
+

@@ -1,0 +1,15 @@
+.login-btn {
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s, color 0.3s;
+    background-color: #3498db;
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.login-btn:hover {
+    background-color: #2980b9; /* Cambia el color de fondo al pasar el cursor */
+    color: #fff; /* Cambia el color del texto al pasar el cursor */
+}
