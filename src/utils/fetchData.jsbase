@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-export const BASE_URL = process.env.REACT_APP_BASE_URL;
-console.log('Base URL:', process.env.REACT_APP_BASE_URL);
+  const BASE_URL = https://servidorrender.onrender.com;
+ 
  
 export const getDataAPI = async (url, token) => {
     const res = await axios.get(`${BASE_URL}/${url}`, {

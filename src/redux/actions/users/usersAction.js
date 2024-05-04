@@ -1,5 +1,6 @@
  
-import { patchDataAPI,   getDataAPI, postDataAPI } from './../../../utils/fetchData'
+ 
+import { patchDataAPI, getDataAPI, postDataAPI } from '../../../utils/fetchData'
 import { GLOBALTYPES } from './../globalTypes'
  
  
