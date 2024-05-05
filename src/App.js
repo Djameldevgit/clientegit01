@@ -13,7 +13,7 @@ import Register from './pages/register'
 
 import Alert from './components/alert/Alert'
 import Header from './components/header/Header'
-
+ 
 import { useSelector, useDispatch } from 'react-redux'
 import { refreshToken } from './redux/actions/authAction'
 import { getPosts } from './redux/actions/postAction'
@@ -65,6 +65,7 @@ import Autentcicacionn from './pages/administracion/autentication/autentcicacion
 import Autenticacionemail from './pages/administracion/autentication/autenticacionemail';
  import Activarcuenta from './pages/administracion/autentication/activarcuenta'
 import Contadorr from './pages/administracion/autentication/contadorr'
+import { API_URL } from './utils/config'
  
  
  
@@ -107,21 +108,21 @@ function App() {
 
 
   useEffect(() => {
-    dispatch(getPosts())
-    dispatch(getServicios())
-
+    // Acciones que no requieren token
+    dispatch(getPosts(API_URL));
+    dispatch(getServicios(API_URL));
+  
     if (auth.token) {
-
-      dispatch(getPostsadmin(auth.token))
-      dispatch(getUsers(auth.token))
-      dispatch(getPostsPendientesss(auth.token))
-      dispatch(getServiciosPendientesss(auth.token))
-      dispatch(getmessageadmin(auth.token));
-
-      dispatch(getSuggestions(auth.token))
-      dispatch(getNotifies(auth.token))
+      // Acciones que requieren token y URL del servidor
+      dispatch(getPostsadmin(auth.token,  API_URL));
+      dispatch(getUsers(auth.token,  API_URL));
+      dispatch(getPostsPendientesss(auth.token,  API_URL));
+      dispatch(getServiciosPendientesss(auth.token,  API_URL));
+      dispatch(getmessageadmin(auth.token,  API_URL));
+      dispatch(getSuggestions(auth.token,  API_URL));
+      dispatch(getNotifies(auth.token,  API_URL));
     }
-  }, [dispatch, auth.token])
+  }, [dispatch, auth.token]);
 
 
   useEffect(() => {
