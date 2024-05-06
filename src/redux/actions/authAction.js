@@ -85,7 +85,7 @@ export const register = (userRegister) => async (dispatch) => {
   try {
     dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
 
-    const res = await axios.post('/register', userRegister);
+    const res = await axios.post('register', userRegister);
 
     dispatch({
       type: GLOBALTYPES.ALERT,
