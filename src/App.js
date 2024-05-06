@@ -97,7 +97,7 @@ function App() {
 
 
   useEffect(() => {
-    dispatch(refreshToken())
+    dispatch(refreshToken(API_URL))
 
     const socket = io()
     dispatch({ type: GLOBALTYPES.SOCKET, payload: socket })
