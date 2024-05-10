@@ -84,10 +84,20 @@ function App() {
   //<Route exact path="/pages/twiliosmsss" component={Tttwliosms} />
   //<Route exact path="/pages/notificacionesusuario" component={Notificacionesusuario} />
 
-
+/*
+  useEffect(() => {
+    const firstLogin = localStorage.getItem('firstLogin')
+    if(firstLogin){
+      const getToken = async () => {
+        const res = await axios.post('/api/refresh_token', null)
+        dispatch({type: GLOBALTYPES.AUTH, payload: res.data.access_token})
+      }
+      getToken()
+    }
+  },[auth.isLogged, dispatch])
   
 
-
+*/
   useEffect(() => {
     dispatch(refreshToken())
 

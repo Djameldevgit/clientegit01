@@ -7,63 +7,66 @@ import axios from 'axios';
 // Action pour se connecter
 export const login = (data) => async (dispatch) => {
   try {
-      dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
-      const res = await postDataAPI('login', data);
-      dispatch({
-          type: GLOBALTYPES.AUTH,
+      dispatch({ type: GLOBALTYPES.ALERT, payload: {loading: true} })
+      const res = await postDataAPI('login', data)
+      dispatch({ 
+          type: GLOBALTYPES.AUTH, 
           payload: {
               token: res.data.access_token,
-              user: res.data.user,
-          },
-      });
+              user: res.data.user
+          } 
+      })
 
-      localStorage.setItem("firstLogin", true);
-      dispatch({
-          type: GLOBALTYPES.ALERT,
-          payload: { success: res.data.msg },
-      });
+      localStorage.setItem("firstLogin", true)
+      dispatch({ 
+          type: GLOBALTYPES.ALERT, 
+          payload: {
+              success: res.data.msg
+          } 
+      })
       
   } catch (err) {
-      dispatch({
-          type: GLOBALTYPES.ALERT,
+      dispatch({ 
+          type: GLOBALTYPES.ALERT, 
           payload: {
-              error: err.response?.data?.msg || 'Impossible de se connecter. Veuillez réessayer.',
-          },
-      });
+              error: err.response.data.msg
+          } 
+      })
   }
-};
+}
+
 
 // Action pour rafraîchir le token
-export const refreshToken = () => async (dispatch) => {
-  const firstLogin = localStorage.getItem('firstLogin');
-  if (firstLogin) {
-    dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
+export const refreshToken = () => async (dispatch) => {//sta acción refreshToken se encarga de renovar el token de acceso utilizando el token de actualización almacenado en una cookie en el navegador, si el usuario ha iniciado sesión previamente (marcado por "firstLogin" en el almacenamiento local). Esto ayuda a mantener al usuario autenticado y a garantizar que puedan seguir accediendo a recursos protegidos de la aplicación sin necesidad de volver a iniciar sesión manualmente.
 
-    try {
-      const res = await postDataAPI('refresh_token');
-
-      dispatch({
-        type: GLOBALTYPES.AUTH,
-        payload: {
-          token: res.data.access_token,
-          user: res.data.user,
-        },
-      });
-
-      dispatch({ type: GLOBALTYPES.ALERT, payload: {} });
-    } catch (err) {
-      dispatch({
-        type: GLOBALTYPES.ALERT,
-        payload: {
-          error: err.response?.data?.msg || 'Une erreur est survenue. Veuillez réessayer.',
-        },
-      });
-    }
-  }
-};
-
+  const firstLogin = localStorage.getItem("firstLogin")
+     if(firstLogin){
+         dispatch({ type: GLOBALTYPES.ALERT, payload: {loading: true} })
+ 
+         try {
+             const res = await postDataAPI('refresh_token')
+             dispatch({ 
+                 type: GLOBALTYPES.AUTH, 
+                 payload: {
+                     token: res.data.access_token,
+                     user: res.data.user
+                 } 
+             })
+ 
+             dispatch({ type: GLOBALTYPES.ALERT, payload: {} })
+ 
+         } catch (err) {
+             dispatch({ 
+                 type: GLOBALTYPES.ALERT, 
+                 payload: {
+                     error: err.response.data.msg
+                 } 
+             })
+         }
+     }
+ }
 // Action pour enregistrer un utilisateur
-export const register = (data) => async (dispatch) => {
+ export const register = (data) => async (dispatch) => {
   const check = validRegister(data);
   if (check.errLength > 0) {
     return dispatch({
@@ -81,6 +84,8 @@ export const register = (data) => async (dispatch) => {
           type: GLOBALTYPES.ALERT,
           payload: { success: res.data.msg },
       });
+ 
+
   } catch (err) {
       dispatch({
           type: GLOBALTYPES.ALERT,
@@ -90,6 +95,9 @@ export const register = (data) => async (dispatch) => {
       });
   }
 };
+ 
+ 
+
 
 // Action pour se connecter avec SMS
 export const loginSMS = (phone) => async (dispatch) => {
