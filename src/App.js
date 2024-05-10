@@ -13,7 +13,7 @@ import Register from './pages/register'
 
 import Alert from './components/alert/Alert'
 import Header from './components/header/Header'
- 
+
 import { useSelector, useDispatch } from 'react-redux'
 import { refreshToken } from './redux/actions/authAction'
 import { getPosts } from './redux/actions/postAction'
@@ -65,7 +65,6 @@ import Autentcicacionn from './pages/administracion/autentication/autentcicacion
 import Autenticacionemail from './pages/administracion/autentication/autenticacionemail';
  import Activarcuenta from './pages/administracion/autentication/activarcuenta'
 import Contadorr from './pages/administracion/autentication/contadorr'
-import { API_URL } from './utils/config'
  
  
  
@@ -78,16 +77,19 @@ function App() {
 
   const dispatch = useDispatch()
   const userBlocked = user && user.bloquepost === 'bloque-user';
- 
+  
 
 
+//se debe hacer lo mejor para estas cosas ya que la porgarmecio
+  //<Route exact path="/pages/twiliosmsss" component={Tttwliosms} />
+  //<Route exact path="/pages/notificacionesusuario" component={Notificacionesusuario} />
 
- 
- 
+
+  
 
 
   useEffect(() => {
-    dispatch(refreshToken(API_URL))
+    dispatch(refreshToken())
 
     const socket = io()
     dispatch({ type: GLOBALTYPES.SOCKET, payload: socket })
@@ -98,21 +100,21 @@ function App() {
 
 
   useEffect(() => {
-    // Acciones que no requieren token
-    dispatch(getPosts(API_URL));
-    dispatch(getServicios(API_URL));
-  
+    dispatch(getPosts())
+    dispatch(getServicios())
+
     if (auth.token) {
-      // Acciones que requieren token y URL del servidor
-      dispatch(getPostsadmin(auth.token,  API_URL));
-      dispatch(getUsers(auth.token,  API_URL));
-      dispatch(getPostsPendientesss(auth.token,  API_URL));
-      dispatch(getServiciosPendientesss(auth.token,  API_URL));
-      dispatch(getmessageadmin(auth.token,  API_URL));
-      dispatch(getSuggestions(auth.token,  API_URL));
-      dispatch(getNotifies(auth.token,  API_URL));
+
+      dispatch(getPostsadmin(auth.token))
+      dispatch(getUsers(auth.token))
+      dispatch(getPostsPendientesss(auth.token))
+      dispatch(getServiciosPendientesss(auth.token))
+      dispatch(getmessageadmin(auth.token));
+
+      dispatch(getSuggestions(auth.token))
+      dispatch(getNotifies(auth.token))
     }
-  }, [dispatch, auth.token]);
+  }, [dispatch, auth.token])
 
 
   useEffect(() => {

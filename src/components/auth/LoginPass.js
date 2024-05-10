@@ -1,15 +1,26 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import {   useHistory } from 'react-router-dom';
+import { useDispatch,useSelector  } from 'react-redux';
 import { login } from '../../redux/actions/authAction';
-
+ 
 const LoginPass = () => {
+ 
+
+  const { auth } = useSelector(state => state);
   const initialState = { account: '', password: '' };
   const [userLogin, setUserLogin] = useState(initialState);
   const { account, password } = userLogin;
 
   const [typePass, setTypePass] = useState(false);
 
-  const dispatch = useDispatch();
+    const dispatch = useDispatch();
+    const history = useHistory();
+
+    useEffect(() => {
+        if (auth.token) history.push('/');
+    }, [auth.token, history]);
+
+  
 
   const handleChangeInput = (e) => {
     const { value, name } = e.target;
