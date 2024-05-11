@@ -38,7 +38,7 @@ const RegisterForm = () => {
           name="username"
           value={username}
           onChange={handleChangeInput}
-          placeholder="Your name is up to 20 chars."
+          
         />
       </div>
 
@@ -51,7 +51,7 @@ const RegisterForm = () => {
           name="account"
           value={account}
           onChange={handleChangeInput}
-          placeholder="Example@gmail.com/+84374481936"
+          placeholder="Example@gmail.com/+21352547854"
         />
       </div>
 
@@ -65,10 +65,10 @@ const RegisterForm = () => {
             name="password"
             value={password}
             onChange={handleChangeInput}
-            placeholder="Password must be at least 6 chars."
+            placeholder="Mot de passe plus de 6 caracter."
           />
           <small onClick={() => setTypePass(!typePass)}>
-            {typePass ? 'Hide' : 'Show'}
+            {typePass ? 'Masquer' : 'Afficher'}
           </small>
         </div>
       </div>
@@ -83,10 +83,10 @@ const RegisterForm = () => {
             name="cf_password"
             value={cf_password}
             onChange={handleChangeInput}
-            placeholder="Your confirm password."
+            placeholder="confirmer le mot de passe."
           />
           <small onClick={() => setTypeCfPass(!typeCfPass)}>
-            {typeCfPass ? 'Hide' : 'Show'}
+            {typeCfPass ? 'Masquer' : 'Afficher'}
           </small>
         </div>
       </div>
