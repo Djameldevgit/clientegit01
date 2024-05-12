@@ -57,10 +57,8 @@ import StatusModalsalle from './components/statusmodelll/StatusModalsalle'
 import StatusadminModal from './components/statusmodelll/StatusadminModal'
 import Dashboard from './pages/user/dashboard'
 
-import { getmessageadmin } from './redux/actions/messagesadminAction'
-import Mensajess from './pages/administracion/administrationmensajes/mensajess'
-import Enviarmensaje from './pages/administracion/administrationmensajes/enviarmensaje'
-import RecebirMensajes from './components/administracionMensajes/RecebirMensajes'
+ 
+ 
 import Autentcicacionn from './pages/administracion/autentication/autentcicacionn'
 import Autenticacionemail from './pages/administracion/autentication/autenticacionemail';
  import Activarcuenta from './pages/administracion/autentication/activarcuenta'
@@ -119,7 +117,7 @@ function App() {
       dispatch(getUsers(auth.token))
       dispatch(getPostsPendientesss(auth.token))
       dispatch(getServiciosPendientesss(auth.token))
-      dispatch(getmessageadmin(auth.token));
+  
 
       dispatch(getSuggestions(auth.token))
       dispatch(getNotifies(auth.token))
@@ -191,11 +189,7 @@ function App() {
 
 
 
-          <Route exact path="/pages/administracion/administrationmensajes/mensajess" component={Mensajess} />
-          <Route exact path="/pages/administracion/administrationmensajes/enviarmensaje" component={Enviarmensaje} />
-          <Route exact path="/pages/administracion/administrationmensajes/recibirmensajes" component={RecebirMensajes} />
-
-
+        
 
 
           <Route exact path="/pages/administracion/pagos" component={Pagos} />

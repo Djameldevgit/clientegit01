@@ -304,13 +304,7 @@ const Home = () => {
                                             </a>
                                             <div className="sidebar-submenu">
                                                 <ul>
-                                                    <li className=" ">
-                                                        <Link className="dropdown-item" to="/pages/administracion/administrationmensajes/mensajess">
-                                                            <i className="fa fa-envelope  text-info" />
-                                                            <span>
-                                                                Messages</span>
-                                                        </Link>
-                                                    </li>
+                                                   
                                                     <li className=" ">
                                                         <Link className="dropdown-item" to="/login">
                                                             <i className="fa fa-envelope text-success" />
@@ -578,13 +572,7 @@ const Home = () => {
                                             </a>
                                             <div className="sidebar-submenu">
                                                 <ul>
-                                                    <li className=" ">
-                                                        <Link className="dropdown-item" to="/pages/administracion/mensajes/mensajess">
-                                                            <i className="fa fa-envelope  text-info" />
-                                                            <span>
-                                                                Mes Messages</span>
-                                                        </Link>
-                                                    </li>
+                                               
                                                     <li className=" ">
                                                         <Link className="dropdown-item" to="/login">
                                                             <i className="fa fa-envelope text-success" />
