@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { API_URL } from './config';
 axios.defaults.baseURL = API_URL;
- axios.defaults.withCredentials=true
+ //axios.defaults.withCredentials=true
  
 
 export const getDataAPI = async (url, token) => {
