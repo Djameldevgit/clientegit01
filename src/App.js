@@ -64,9 +64,6 @@ import Autenticacionemail from './pages/administracion/autentication/autenticaci
  import Activarcuenta from './pages/administracion/autentication/activarcuenta'
 import Contadorr from './pages/administracion/autentication/contadorr'
  
- 
- 
-
 
 
 function App() {
@@ -82,7 +79,7 @@ function App() {
   //<Route exact path="/pages/twiliosmsss" component={Tttwliosms} />
   //<Route exact path="/pages/notificacionesusuario" component={Notificacionesusuario} />
 
-/*
+ 
   useEffect(() => {
     const firstLogin = localStorage.getItem('firstLogin')
     if(firstLogin){
@@ -95,7 +92,7 @@ function App() {
   },[auth.isLogged, dispatch])
   
 
-*/
+ 
   useEffect(() => {
     dispatch(refreshToken())
 
