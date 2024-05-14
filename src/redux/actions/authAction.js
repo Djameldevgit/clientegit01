@@ -1,10 +1,8 @@
 import { GLOBALTYPES } from './globalTypes';
 import { postDataAPI } from '../../utils/fetchData';
 import { isPhone } from '../../utils/validation/valid';
-import validRegister from './../../utils/validation/validRegister';
-import axios from 'axios';
-
-// Action pour se connecter
+ import validRegister from './../../utils/validation/validRegister';
+ 
 export const login = (data) => async (dispatch) => {
   try {
       dispatch({ type: GLOBALTYPES.ALERT, payload: {loading: true} })
@@ -64,8 +62,8 @@ export const refreshToken = () => async (dispatch) => {//sta acción refreshToke
              })
          }
      }
- }
-// Action pour enregistrer un utilisateur
+ } 
+ 
  export const register = (data) => async (dispatch) => {
   const check = validRegister(data);
   if (check.errLength > 0) {
@@ -78,8 +76,9 @@ export const refreshToken = () => async (dispatch) => {//sta acción refreshToke
   try {
       dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
 
-    const res = await axios.post('/api/register', data);
-
+    const res = await postDataAPI('register', data);
+   
+   
       dispatch({
           type: GLOBALTYPES.ALERT,
           payload: { success: res.data.msg },
@@ -96,9 +95,33 @@ export const refreshToken = () => async (dispatch) => {//sta acción refreshToke
   }
 };
  
- 
+/*
+export const register = (data) => async (dispatch) => {
+  const check = validRegister(data)
+  if(check.errLength > 0)
+  return dispatch({type: GLOBALTYPES.ALERT, payload: check.errMsg})
 
+  try {
+      dispatch({type: GLOBALTYPES.ALERT, payload: {loading: true}})
 
+      const res = await postDataAPI('register', data)
+       
+      dispatch({ 
+          type: GLOBALTYPES.ALERT, 
+          payload: {
+              success: res.data.msg
+          } 
+      })
+  } catch (err) {
+      dispatch({ 
+          type: GLOBALTYPES.ALERT, 
+          payload: {
+              error: err.response.data.msg
+          } 
+      })
+  }
+}
+ */
 // Action pour se connecter avec SMS
 export const loginSMS = (phone) => async (dispatch) => {
   if (!isPhone(phone)) {
@@ -134,7 +157,7 @@ export const loginSMS = (phone) => async (dispatch) => {
     });
   }
 };
-
+ 
 // Action pour vérifier le SMS
 export const verifySMS = async (phone, dispatch) => {
   const code = prompt('Veuillez entrer le code reçu par SMS');
