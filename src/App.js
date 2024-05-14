@@ -3,11 +3,9 @@ import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
 import ActivationEmail from './pages/auth/ActivationEmail'
 import ForgotPassword from './pages/auth/ForgotPassword'
 import ResetPassword from './pages/auth/ResetPassword'
-/*import PageRender from './customRouter/PageRender'
+import PageRender from './customRouter/PageRender'
 import PrivateRouter from './customRouter/PrivateRouter'
-<PrivateRouter exact path="/:page" component={PageRender} />
-<PrivateRouter exact path="/:page/:id" component={PageRender} />
-*/
+
 import axios from 'axios'
 import Home from './pages/home'
 import Login from './pages/login'
@@ -211,7 +209,9 @@ function App() {
             path="/pages/bloqueos"
             render={() => (userBlocked ? <Bloqueos /> : <Redirect to="/" />)}
           />
-         
+          <PrivateRouter exact path="/:page" component={PageRender} />
+          <PrivateRouter exact path="/:page/:id" component={PageRender} />
+
         </div>
       </div>
     </Router>

@@ -57,7 +57,7 @@ const Menu = () => {
                                     {theme ? 'Light mode' : 'Dark mode'}
                                 </label>
                                 <div className="dropdown-divider"></div>
-                                <Link className="dropdown-item" to="/" onClick={() => dispatch(logout())}>
+                                <Link className="dropdown-item" to="/login" onClick={() => dispatch(logout())}>
                                     <i className="fas fa-power-off" style={{ color: 'red' }}></i> Se déconnecter
                                 </Link>
 
@@ -120,7 +120,7 @@ const Menu = () => {
                                     {theme ? 'Light mode' : 'Dark mode'}
                                 </label>
                                 <div className="dropdown-divider"></div>
-                                <Link className="dropdown-item" to="/" onClick={() => dispatch(logout())}>
+                                <Link className="dropdown-item" to="/login" onClick={() => dispatch(logout())}>
                                     <i className="fas fa-power-off" style={{ color: 'red' }}></i> Se déconnecter
                                 </Link>
                             </div>
@@ -199,7 +199,7 @@ const Menu = () => {
                                     {theme ? 'Light mode' : 'Dark mode'}
                                 </label>
                                 <div className="dropdown-divider"></div>
-                                <Link className="dropdown-item" to="/" onClick={() => dispatch(logout())}>
+                                <Link className="dropdown-item" to="/login" onClick={() => dispatch(logout())}>
                                     <i className="fas fa-power-off" style={{ color: 'red' }}></i> Se déconnecter
                                 </Link>            </div>
                         </li>
@@ -268,7 +268,7 @@ const Menu = () => {
                                     {theme ? 'Light mode' : 'Dark mode'}
                                 </label>
                                 <div className="dropdown-divider"></div>
-                                <Link className="dropdown-item" to="/" onClick={() => dispatch(logout())}>Logout</Link>
+                                <Link className="dropdown-item" to="/login" onClick={() => dispatch(logout())}>Logout</Link>
                             </div>
                         </li>
                     </ul>
