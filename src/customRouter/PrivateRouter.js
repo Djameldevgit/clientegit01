@@ -34,7 +34,7 @@ const PrivateRouter = ({ component: Component, auth, ...rest }) => {
     <Route
       {...rest}
       render={props =>
-        (token   || props.location.pathname.includes('/forgot_password') || props.location.pathname.includes('/reset')  || props.location.pathname.includes('/register')  || props.location.pathname.includes('/login')) ? (
+        (token   || props.location.pathname.includes('/forgot_password')|| props.location.pathname.includes('/api/refresh_token')  || props.location.pathname.includes('/activate/:activation_token') || props.location.pathname.includes('/reset')  || props.location.pathname.includes('/register')  || props.location.pathname.includes('/login')) ? (
           <Component {...props} />
         ) : (
           <Redirect to={{ pathname: '/', state: { from: props.location } }} />
