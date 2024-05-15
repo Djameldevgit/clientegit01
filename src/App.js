@@ -63,6 +63,7 @@ import Autentcicacionn from './pages/administracion/autentication/autentcicacion
 import Autenticacionemail from './pages/administracion/autentication/autenticacionemail';
  import Activarcuenta from './pages/administracion/autentication/activarcuenta'
 import Contadorr from './pages/administracion/autentication/contadorr'
+import SERVER_URL from './utils/config'
  
 
 
@@ -91,12 +92,11 @@ function App() {
     }
   },[auth.isLogged, dispatch])
   
-
  
   useEffect(() => {
-    dispatch(refreshToken())
+    dispatch(refreshToken(SERVER_URL))
 
-    const socket = io()
+    const socket = io(SERVER_URL)
     dispatch({ type: GLOBALTYPES.SOCKET, payload: socket })
     return () => socket.close()
   }, [dispatch])
