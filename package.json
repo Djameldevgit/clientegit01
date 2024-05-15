@@ -73,7 +73,7 @@
     ]
   },
   "devDependencies": {
-    "@babel/plugin-proposal-private-property-in-object": "^4.3.6"
+     
 
 
   }
