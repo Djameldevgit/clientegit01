@@ -8,8 +8,8 @@ const LoginPass = () => {
 
   const { auth } = useSelector(state => state);
   const initialState = { account: '', password: '' };
-  const [userLogin, setUserLogin] = useState(initialState);
-  const { account, password } = userLogin;
+  const [data, setUserLogin] = useState(initialState);
+  const { account, password } = data;
 
   const [typePass, setTypePass] = useState(false);
 
@@ -24,12 +24,12 @@ const LoginPass = () => {
 
   const handleChangeInput = (e) => {
     const { value, name } = e.target;
-    setUserLogin({ ...userLogin, [name]: value });
+    setUserLogin({ ...data, [name]: value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(login(userLogin));
+    dispatch(login(data));
   };
 
   return (
