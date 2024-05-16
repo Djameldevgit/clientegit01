@@ -2,7 +2,7 @@ import { GLOBALTYPES } from './globalTypes';
 import { postDataAPI } from '../../utils/fetchData';
 import { isPhone } from '../../utils/validation/valid';
  import validRegister from './../../utils/validation/validRegister';
- 
+ import axios from 'axios';
 export const login = (data) => async (dispatch) => {
   try {
       dispatch({ type: GLOBALTYPES.ALERT, payload: {loading: true} })
@@ -33,16 +33,16 @@ export const login = (data) => async (dispatch) => {
   }
 }
 
-
+//Cuando el token de acceso está próximo a expirar o ha expirado, el cliente activa la acción refreshToken, que envía automáticamente una solicitud al servidor para renovar el token de acceso utilizando el token de actualización almacenado en una cookie en el navegador del usuario.
 // Action pour rafraîchir le token
 export const refreshToken = () => async (dispatch) => {//sta acción refreshToken se encarga de renovar el token de acceso utilizando el token de actualización almacenado en una cookie en el navegador, si el usuario ha iniciado sesión previamente (marcado por "firstLogin" en el almacenamiento local). Esto ayuda a mantener al usuario autenticado y a garantizar que puedan seguir accediendo a recursos protegidos de la aplicación sin necesidad de volver a iniciar sesión manualmente.
-
+//mientras el token de actualización esté vigente, el cliente puede usar la acción refreshToken para renovar automáticamente el token de acceso sin requerir que el usuario vuelva a iniciar sesión manualmente.
   const firstLogin = localStorage.getItem("firstLogin")
      if(firstLogin){
          dispatch({ type: GLOBALTYPES.ALERT, payload: {loading: true} })
  
          try {
-             const res = await postDataAPI('refresh_token')
+             const res = await axios.post('/api/refresh_token')
              dispatch({ 
                  type: GLOBALTYPES.AUTH, 
                  payload: {
