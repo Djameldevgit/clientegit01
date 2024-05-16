@@ -42,7 +42,7 @@ export const refreshToken = () => async (dispatch) => {//sta acción refreshToke
          dispatch({ type: GLOBALTYPES.ALERT, payload: {loading: true} })
  
          try {
-             const res = await  getDataAPI('/api/refresh_token')
+             const res = await  getDataAPI('refresh_token')
        
              dispatch({ 
                  type: GLOBALTYPES.AUTH, 
