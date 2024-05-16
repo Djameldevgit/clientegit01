@@ -1,8 +1,8 @@
 import { GLOBALTYPES } from './globalTypes';
-import { postDataAPI } from '../../utils/fetchData';
+import { getDataAPI ,postDataAPI} from '../../utils/fetchData';
 import { isPhone } from '../../utils/validation/valid';
  import validRegister from './../../utils/validation/validRegister';
- import axios from 'axios';
+ 
 export const login = (data) => async (dispatch) => {
   try {
       dispatch({ type: GLOBALTYPES.ALERT, payload: {loading: true} })
@@ -42,7 +42,8 @@ export const refreshToken = () => async (dispatch) => {//sta acción refreshToke
          dispatch({ type: GLOBALTYPES.ALERT, payload: {loading: true} })
  
          try {
-             const res = await axios.post('/api/refresh_token')
+             const res = await  getDataAPI('/refresh_token')
+       
              dispatch({ 
                  type: GLOBALTYPES.AUTH, 
                  payload: {
