@@ -13,11 +13,11 @@ const Post = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getPost({ detailPost, id }));
+        dispatch(getPost({ detailPost, id }));//dispatch(getPost({ detailPost, id })): Despacha la acción para obtener el post si no está ya en detailPost
 
-        if (detailPost.length > 0) {
-            const newArr = detailPost.filter(post => post._id === id);
-            setPost(newArr);
+        if (detailPost.length > 0) {// Si detailPost tiene elementos, se filtran los posts que coinciden con el id y se actualiza el estado local post
+            const newArr = detailPost.filter(post => post._id === id);//
+            setPost(newArr);//setPost(newArr): Si detailPost contiene datos, filtra el post con el id correcto y actualiza el estado local.
         }
     }, [detailPost, dispatch, id]);
 

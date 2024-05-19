@@ -87,7 +87,7 @@ const CardFooter = ({post}) => {
               handleUnLike={handleUnLike}
             />
       
-            <Link to={`postadmin//${post._id}`} className="text-dark" style={{ marginLeft: '10px' }}>
+            <Link to={`postadmin/${post._id}`} className="text-dark" style={{ marginLeft: '10px' }}>
               <i className="far fa-comment" style={{ fontSize: '20px', color: '#3498DB', cursor: 'pointer' }} />
             </Link>
       

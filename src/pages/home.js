@@ -155,10 +155,7 @@ const Home = () => {
                             </div>
 
                         </div>
-
-                        <div className="sidebar-footer">
-                            s<span>hhhhhhhhhhhhh</span>
-                        </div>
+ 
                     </nav>
 
                     <main className="page-content">
