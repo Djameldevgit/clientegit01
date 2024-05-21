@@ -16,7 +16,7 @@ export const POSTAPROVE_TYPES = {
      export const createPostpendiente = ({ postData,  wilaya, commune, specifications, images, auth, socket }) => async (dispatch) => {
         let media = []
         try {
-            dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } })
+            dispatch({ type: POSTAPROVE_TYPES.LOADING_POST, payload: true })
             if (images.length > 0) media = await imageUpload(images)
     
             const res = await postDataAPI('crearpostpendiente', { ...postData,   wilaya, commune, specifications, images: media }, auth.token)
@@ -26,7 +26,7 @@ export const POSTAPROVE_TYPES = {
                 payload: { ...res.data.newPost, user: auth.user }
             })
     
-            dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: false } })
+            dispatch({ type: POSTAPROVE_TYPES.LOADING_POST, payload: false })
            
             dispatch({ 
               type: GLOBALTYPES.ALERT, 

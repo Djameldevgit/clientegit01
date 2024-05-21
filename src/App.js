@@ -1,5 +1,7 @@
 import { useEffect } from 'react'
+
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
+import axios from 'axios';
 import ActivationEmail from './pages/auth/ActivationEmail'
 import ForgotPassword from './pages/auth/ForgotPassword'
 import ResetPassword from './pages/auth/ResetPassword'
@@ -84,7 +86,22 @@ function App() {
     return () => socket.close()
   }, [dispatch])
 
-
+  useEffect(() => {
+    const firstLogin = localStorage.getItem('firstLogin')
+    if(firstLogin){
+      const refreshToken= async () => {
+        const res = await axios.post('/api/refresh_token', null)
+        dispatch({ 
+          type: GLOBALTYPES.AUTH, 
+          payload: {
+              token: res.data.access_token,
+              user: res.data.user
+          } 
+      })
+      }
+      refreshToken()
+    }
+  },[auth, dispatch])
 
 
   useEffect(() => {
