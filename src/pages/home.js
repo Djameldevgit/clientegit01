@@ -4,12 +4,14 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom';
 import jQuery from 'jquery';
 import Posts from '../components/homePost/Posts';
+ 
 import { logout } from '../redux/actions/authAction';
 import Avatar from '../components/Avatar';
+import Servicios from '../components/homeServicio/Servicios';
 let scroll = 0;
 const Home = () => {
-
-    const { homePostsReducer, auth } = useSelector((state) => state);
+ 
+    const { homePostsReducer,homeServiciosReducer, auth } = useSelector((state) => state);
 
     const dispatch = useDispatch()
     const avatarSrc = auth?.user?.avatar;
@@ -169,7 +171,17 @@ const Home = () => {
                             )}
                         </div>
                     </main>
+                    <main className="page-content">
+                        <hr />
 
+                        <div className='home'>
+                            {homeServiciosReducer.result === 0 && (!homeServiciosReducer.servicios?.length || homeServiciosReducer.servicios.length === 0) ? (
+                                <h2 className="text-center">Aucun résultat trouvé pour cette recherche</h2>
+                            ) : (
+                                <Servicios />
+                            )}
+                        </div>
+                    </main>
                 </div>
 
             </div>
@@ -392,7 +404,17 @@ const Home = () => {
                             )}
                         </div>
                     </main>
+                    <main className="page-content">
+                        <hr />
 
+                        <div className='home'>
+                            {homeServiciosReducer.result === 0 && (!homeServiciosReducer.servicios?.length || homeServiciosReducer.servicios.length === 0) ? (
+                                <h2 className="text-center">Aucun résultat trouvé pour cette recherche</h2>
+                            ) : (
+                                <Servicios />
+                            )}
+                        </div>
+                    </main>
                 </div>
 
             </div>
@@ -654,7 +676,17 @@ const Home = () => {
                             )}
                         </div>
                     </main>
+                    <main className="page-content">
+                        <hr />
 
+                        <div className='home'>
+                            {homeServiciosReducer.result === 0 && (!homeServiciosReducer.servicios?.length || homeServiciosReducer.servicios.length === 0) ? (
+                                <h2 className="text-center">Aucun résultat trouvé pour cette recherche</h2>
+                            ) : (
+                                <Servicios />
+                            )}
+                        </div>
+                    </main>
                 </div>
 
             </div>

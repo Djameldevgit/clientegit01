@@ -1,5 +1,5 @@
 import { GLOBALTYPES } from './globalTypes';
-import { getDataAPI ,postDataAPI} from '../../utils/fetchData';
+import { postDataAPI} from '../../utils/fetchData';
 import { isPhone } from '../../utils/validation/valid';
  import validRegister from './../../utils/validation/validRegister';
  

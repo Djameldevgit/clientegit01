@@ -39,9 +39,7 @@ import roleReducer from './rolee/roleeReducer'
 import postaproveReducer from './postaproveReducer'
 import servicioaproveReducer from './servicioaproveReducer'
 import statussearch from './statussearch'
-import messagesadminReducer from './messagesadminReducer'
-
-
+ 
 
 
 
@@ -79,5 +77,5 @@ export default combineReducers({
     usersReducer,
     postaproveReducer,
     servicioaproveReducer,
-    messagesadminReducer
+   
 })

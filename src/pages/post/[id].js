@@ -12,8 +12,8 @@ const Post = () => {
     const { detailPost } = useSelector(state => state);
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(getPost({ detailPost, id }));//dispatch(getPost({ detailPost, id })): Despacha la acción para obtener el post si no está ya en detailPost
+    useEffect(() => {// lo primero que se ejecuta  se ejecuta el useEffect definido en el componente. Este useEffect se usa para despachar la acción getPost.
+        dispatch(getPost({ detailPost, id }));//se despacha la acción getPost con el id del post, el estado detailPost actual y la información de autenticación (auth).
 
         if (detailPost.length > 0) {// Si detailPost tiene elementos, se filtran los posts que coinciden con el id y se actualiza el estado local post
             const newArr = detailPost.filter(post => post._id === id);//

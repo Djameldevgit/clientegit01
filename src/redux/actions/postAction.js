@@ -140,9 +140,12 @@ export const unLikePost = ({ post, auth, socket }) => async (dispatch) => {
     }
 }
 
-export const getPost = ({ detailPost, id }) => async (dispatch) => {
-    if (detailPost.every(post => post._id !== id)) {
-        try {
+export const getPost = ({ detailPost, id }) => async (dispatch) => {//La acción getPost verifica si el post con el id especificado ya está en detailPost
+    if (detailPost.every(post => post._id !== id)) {//Si detailPost.every(post => post._id !== id) es true, significa que el post no está en detailPost y se realiza una llamada a la API para obtener los detalles del post.
+      //  Si detailPost.every(post => post._id !== id) es false, significa que el post ya está en detailPost y no se realiza una nueva llamada a la API.
+      //Verificación de Datos: getPost verifica si los datos ya están en detailPost.Solo si los datos no están en detailPost, se hace la llamada a la API.
+      
+      try {
             const res = await getDataAPI(`post/${id}`)
 
             dispatch({ type: POST_TYPES.GET_POST, payload: res.data.post })

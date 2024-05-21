@@ -6,7 +6,7 @@ import ResetPassword from './pages/auth/ResetPassword'
 import PageRender from './customRouter/PageRender'
 import PrivateRouter from './customRouter/PrivateRouter'
 
-import axios from 'axios'
+ 
 import Home from './pages/home'
 import Login from './pages/login'
 import Register from './pages/register'
@@ -50,7 +50,7 @@ import Serviciospendientes from './pages/administracion/serviciospendientes'
 import { getServiciosPendientesss } from './redux/actions/servicioaproveAction'
 //import Notificacionesusuario from './pages/notificacionesusuario'
 import Infoclient from './pages/infoclient'
-import Pagos from './pages/administracion/Pagos'
+ 
 
 import Statusmodalsearch from './components/statusmodelll/Statusmodalsearch'
 import StatusModalsalle from './components/statusmodelll/StatusModalsalle'
@@ -59,13 +59,6 @@ import Dashboard from './pages/user/dashboard'
 
  
  
-import Autentcicacionn from './pages/administracion/autentication/autentcicacionn'
-import Autenticacionemail from './pages/administracion/autentication/autenticacionemail';
- import Activarcuenta from './pages/administracion/autentication/activarcuenta'
-import Contadorr from './pages/administracion/autentication/contadorr'
-import SERVER_URL from './utils/config'
- 
-
 
 function App() {
   const { auth, status, statusservicio, statusadmin, statussearch, modal, call } = useSelector(state => state)
@@ -81,22 +74,12 @@ function App() {
   //<Route exact path="/pages/notificacionesusuario" component={Notificacionesusuario} />
 
  
-  useEffect(() => {
-    const firstLogin = localStorage.getItem('firstLogin')
-    if(firstLogin){
-      const getToken = async () => {
-        const res = await axios.post('/api/refresh_token', null)
-        dispatch({type: GLOBALTYPES.AUTH, payload: res.data.access_token})
-      }
-      getToken()
-    }
-  },[auth.isLogged, dispatch])
   
  
   useEffect(() => {
-    dispatch(refreshToken(SERVER_URL))
+    dispatch(refreshToken())
 
-    const socket = io(SERVER_URL)
+    const socket = io()
     dispatch({ type: GLOBALTYPES.SOCKET, payload: socket })
     return () => socket.close()
   }, [dispatch])
@@ -176,21 +159,7 @@ function App() {
 
           <Route exact path="/pages/administracion/index" component={Index} />
 
-
-          <Route exact path="/pages/administracion/autentication/activarcuenta" component={Activarcuenta} />
-          <Route exact path="/pages/administracion/autentication/autenticationn" component={Autentcicacionn} />
-          <Route exact path="/pages/administracion/autentication/autenticacionemail" component={Autenticacionemail} />
-           <Route exact path="/pages/administracion/autentication/contadorr" component={Contadorr} />
-
-
-
-
-
-        
-
-
-          <Route exact path="/pages/administracion/pagos" component={Pagos} />
-
+ 
           <Route exact path="/pages/bloqueos/blockposts" component={Blockposts} />
 
           <Route
