@@ -101,7 +101,7 @@ function App() {
       }
       refreshToken()
     }
-  },[auth, dispatch])
+  },[auth.user, dispatch])
 
 
   useEffect(() => {
