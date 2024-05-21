@@ -86,7 +86,7 @@ function App() {
     return () => socket.close()
   }, [dispatch])
 
-  useEffect(() => {
+/*  useEffect(() => {
     const firstLogin = localStorage.getItem('firstLogin')
     if(firstLogin){
       const refreshToken= async () => {
@@ -102,7 +102,7 @@ function App() {
       refreshToken()
     }
   },[auth.user, dispatch])
-
+*/
 
   useEffect(() => {
     dispatch(getPosts())
