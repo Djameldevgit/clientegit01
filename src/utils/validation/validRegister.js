@@ -2,10 +2,7 @@ const validRegister = ({ username,  password, cf_password }) => {
     const err = {}
  
    
-    
- 
-
-
+     
     if (!username) {
         err.username = "Veuillez ajouter votre nom d'utilisateur."
     } else if (username.replace(/ /g, '').length > 25) {

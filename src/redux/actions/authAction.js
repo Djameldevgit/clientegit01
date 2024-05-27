@@ -1,12 +1,16 @@
 import { GLOBALTYPES } from './globalTypes';
 import { postDataAPI} from '../../utils/fetchData';
 import { isPhone } from '../../utils/validation/valid';
- import validRegister from './../../utils/validation/validRegister';
  
+import valid from '../../utils/valid';
+ 
+
+
 export const login = (data) => async (dispatch) => {
   try {
       dispatch({ type: GLOBALTYPES.ALERT, payload: {loading: true} })
       const res = await postDataAPI('login', data)
+      console.log(res.data)
       dispatch({ 
           type: GLOBALTYPES.AUTH, 
           payload: {
@@ -65,64 +69,36 @@ export const refreshToken = () => async (dispatch) => {//sta acción refreshToke
  } 
  
  export const register = (data) => async (dispatch) => {
-  const check = validRegister(data);
-  if (check.errLength > 0) {
-    return dispatch({
-      type: GLOBALTYPES.ALERT,
-      payload: check.errMsg.map((msg) => ({ error: msg })),
-    });
-  }
+  const check = valid(data);
+  if (check.errLength > 0)
+      return dispatch({ type: GLOBALTYPES.ALERT, payload: check.errMsg });
 
   try {
       dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
 
-    const res = await postDataAPI('register', data);
-   
-   
-      dispatch({
-          type: GLOBALTYPES.ALERT,
-          payload: { success: res.data.msg },
-      });
- 
+    const res=  await postDataAPI ('register', data);
+console.log(res.data)
+       
 
-  } catch (err) {
       dispatch({
           type: GLOBALTYPES.ALERT,
           payload: {
-              error: err.response?.data?.msg || 'Une erreur est survenue. Veuillez réessayer.',
+              msg: res.data.msg
+          },
+      });
+  } catch (err) {
+      console.error('Error en el bloque catch:', err);
+      dispatch({
+          type: GLOBALTYPES.ALERT,
+          payload: {
+              error: err.response.data.msg,
           },
       });
   }
 };
+
+
  
-/*
-export const register = (data) => async (dispatch) => {
-  const check = validRegister(data)
-  if(check.errLength > 0)
-  return dispatch({type: GLOBALTYPES.ALERT, payload: check.errMsg})
-
-  try {
-      dispatch({type: GLOBALTYPES.ALERT, payload: {loading: true}})
-
-      const res = await postDataAPI('register', data)
-       
-      dispatch({ 
-          type: GLOBALTYPES.ALERT, 
-          payload: {
-              success: res.data.msg
-          } 
-      })
-  } catch (err) {
-      dispatch({ 
-          type: GLOBALTYPES.ALERT, 
-          payload: {
-              error: err.response.data.msg
-          } 
-      })
-  }
-}
- */
-// Action pour se connecter avec SMS
 export const loginSMS = (phone) => async (dispatch) => {
   if (!isPhone(phone)) {
     return dispatch({

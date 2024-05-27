@@ -9,8 +9,8 @@ const RegisterForm = () => {
     password: '',
     cf_password: '',
   };
-  const [userRegister, setUserRegister] = useState(initialState);
-  const { username, account, password, cf_password } = userRegister;
+  const [data, setUserRegister] = useState(initialState);
+  const { username, account, password, cf_password } = data;
 
   const [typePass, setTypePass] = useState(false);
   const [typeCfPass, setTypeCfPass] = useState(false);
@@ -19,12 +19,13 @@ const RegisterForm = () => {
 
   const handleChangeInput = (e) => {
     const { name, value } = e.target;
-    setUserRegister({ ...userRegister, [name]: value });
+    setUserRegister({ ...data, [name]: value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(register(userRegister));
+    dispatch(register(data));
+   
   };
 
   return (
