@@ -1,69 +1,138 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { Layout, Typography, Row, Col } from 'antd';
-import LoginPass from '../components/auth/LoginPass';
-import LoginSMS from '../components/auth/LoginSMS';
-import SocialLogin from '../components/auth/SocialLogin'
-const { Content } = Layout;
-const { Title, Text } = Typography;
+import { login } from '../redux/actions/authAction';
+import { useDispatch, useSelector } from 'react-redux';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import Paper from '@mui/material/Paper';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const Login = () => {
-  const [sms, setSms] = useState(false);
-  const history = useHistory();
-  const { auth } = useSelector((state) => state);
+    const initialState = { email: '', password: '', showPassword: false };
+    const [userData, setUserData] = useState(initialState);
+    const { email, password, showPassword } = userData;
 
-  useEffect(() => {
-    if (auth.access_token) {
-      const url = history.location.search.replace('?', '/');
-      history.push(url);
-    }
-  }, [auth.access_token, history]);
+    const { auth } = useSelector(state => state);
+    const dispatch = useDispatch();
+    const history = useHistory();
 
-  return (
-    <Layout className="auth_page"  >
-      <Row justify="center" align="middle" style={{ minHeight: '100vh' }}>
-       
-          <Content
-            className="auth_box"
-            style={{
-              padding: '20px',
-              backgroundColor: '#ffffff',
-              borderRadius: '8px',
-              boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)', // Sombra para el contenedor
-              textAlign: 'center', // Centra el contenido
-            }}
-          >
-            <Title level={3} className="text-uppercase mb-4">
-              Connexion
-            </Title>
-            <div className='mb-2'> 
-              <SocialLogin />
-              </div> 
-           
+    useEffect(() => {
+        if (auth.token) history.push('/');
+    }, [auth.token, history]);
 
-            {sms ? <LoginSMS /> : <LoginPass />}
+    const handleChangeInput = e => {
+        const { name, value } = e.target;
+        setUserData({ ...userData, [name]: value });
+    };
 
-            <Row gutter={16} className="my-2 text-primary" style={{ cursor: 'pointer' }}>
-              <Col span={12}>
-                <Link to="/forgot_password">Mot de passe oublié ?</Link>
-              </Col>
-              <Col span={12} style={{ textAlign: 'right' }} onClick={() => setSms(!sms)}>
-                {sms ? 'Se connecter avec un mot de passe' : 'Se connecter avec un SMS'}
-              </Col>
-            </Row>
+    const handleClickShowPassword = () => {
+        setUserData({ ...userData, showPassword: !showPassword });
+    };
 
-            <Text>
-              Vous n'avez pas de compte?{' '}
-              <Link to={`/register${history.location.search}`} style={{ color: 'crimson' }}>
-                Inscrivez-vous maintenant
-              </Link>
-            </Text>
-          </Content>
-       
-      </Row>
-    </Layout>
-  );
+    const handleMouseDownPassword = e => {
+        e.preventDefault();
+    };
+
+    const handleSubmit = e => {
+        e.preventDefault();
+        dispatch(login(userData));
+    };
+
+    return (
+        <ThemeProvider theme={createTheme()}>
+            <Grid container component="main" sx={{ height: '100vh' }}>
+                <CssBaseline />
+                
+                <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+                    <Box
+                        sx={{
+                            my: 8,
+                            mx: 4,
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                        }}
+                    >
+                        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                            <LockOutlinedIcon />
+                        </Avatar>
+                        <Typography component="h1" variant="h5">
+                            Connexion
+                        </Typography>
+                        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+                            <TextField
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="email"
+                                label="Adresse e-mail"
+                                name="email"
+                                autoComplete="email"
+                                autoFocus
+                                value={email}
+                                onChange={handleChangeInput}
+                            />
+                            <TextField
+                                margin="normal"
+                                required
+                                fullWidth
+                                name="password"
+                                label="Mot de passe"
+                                type={showPassword ? 'text' : 'password'}
+                                id="password"
+                                autoComplete="current-password"
+                                value={password}
+                                onChange={handleChangeInput}
+                                InputProps={{
+                                    endAdornment: (
+                                        <InputAdornment position="end">
+                                            <IconButton
+                                                aria-label="toggle password visibility"
+                                                onClick={handleClickShowPassword}
+                                                onMouseDown={handleMouseDownPassword}
+                                            >
+                                                {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                                            </IconButton>
+                                        </InputAdornment>
+                                    ),
+                                }}
+                            />
+                            <Button
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                sx={{ mt: 3, mb: 2 }}
+                            >
+                                Connexion
+                            </Button>
+                            <Grid container justifyContent="space-between">
+                                <Grid item>
+                                    <Link to="/register" variant="body2">
+                                        Devenir membre
+                                    </Link>
+                                </Grid>
+                                <Grid item>
+                                    <Link to="/forgot_password" variant="body2">
+                                        Mot de passe oublié ?
+                                    </Link>
+                                </Grid>
+                            </Grid>
+                        </Box>
+                    </Box>
+                </Grid>
+            </Grid>
+        </ThemeProvider>
+    );
 };
 
 export default Login;
