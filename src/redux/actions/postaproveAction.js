@@ -14,12 +14,15 @@ export const POSTAPROVE_TYPES = {
 
 
      export const createPostpendiente = ({ postData,  wilaya, commune, specifications, images, auth, socket }) => async (dispatch) => {
-        let media = []
+        let media = []//Se crea un array let media = [] para almacenar las URLs de las imágenes subidas a Cloudinary.
+   
         try {
             dispatch({ type: POSTAPROVE_TYPES.LOADING_POST, payload: true })
-            if (images.length > 0) media = await imageUpload(images)
+            if (images.length > 0) media = await imageUpload(images)//Si hay imágenes, se suben a Cloudinary usando la función imageUpload(images) y se almacenan las URLs resultantes en media
+
     
-            const res = await postDataAPI('crearpostpendiente', { ...postData,   wilaya, commune, specifications, images: media }, auth.token)
+            const res = await postDataAPI('crearpostpendiente', { ...postData,   wilaya, commune, specifications, images: media }, auth.token)//Se envían el contenido del post y las URLs de las imágenes al servidor usando postDataAPI.
+
      
             dispatch({
                 type: POSTAPROVE_TYPES.CREATE_POST_PENDIENTE,

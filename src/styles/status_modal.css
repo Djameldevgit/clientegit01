@@ -1,6 +1,7 @@
-.status_modal{
+.status_modal {
+    /* Posiciona el modal de manera fija, cubriendo toda la pantalla con un fondo semi-transparente */
     position: fixed;
-    top:0;
+    top: 0;
     left: 0;
     background: #0008;
     z-index: 4;
@@ -8,7 +9,10 @@
     height: 100vh;
     overflow: auto;
 }
-.status_modal form{
+ 
+ 
+.status_modal form {
+    /*Formulario del Modal Estilos del formulario dentro del modal */
     max-width: 450px;
     width: 100%;
     background: white;
@@ -16,47 +20,68 @@
     padding: 20px;
     border-radius: 5px;
 }
-.status_header{
+ 
+  
+.status_header {
+    /*Encabezado del Modal Estilos del encabezado del modal */
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid #ddd;
     transform: translateY(-13px);
 } 
-.status_header span{
+
+.status_header span {
+    /* Estilos del ícono o texto del encabezado */
     font-size: 2rem;
     font-weight: 900;
     cursor: pointer;
     transform: translateY(-5px);
 }
-.status_body textarea{
+
+ 
+    /* Cuerpo del Modal Estilos del área de texto */
+.status_body textarea {
+   
     width: 100%;
     min-height: 150px;
     border: none;
     outline: none;
     resize: none;
 }
-.status_body .input_images{
+
+
+.status_body .input_images {
+    /* Entrada de Imágenes del Cuerpo del Modal  Contenedor de los íconos de entrada de imágenes y videos */
     display: flex;
     justify-content: center;
     margin: 10px 0;
 }
-.status_body .input_images i{
+
+.status_body .input_images i {
+    /* Estilos de los íconos de cámara y galería */
     font-size: 2rem;
     cursor: pointer;
 }
-.status_body .input_images .file_upload{
+
+.status_body .input_images .file_upload {
+    /* Contenedor para el input de archivos */
     overflow: hidden;
     margin: 0 10px;
     position: relative;
 }
-.status_body .input_images .file_upload #file{
+
+.status_body .input_images .file_upload #file {
+    /* Estilos del input de archivos */
     position: absolute;
-    top:0;
+    top: 0;
     left: 0;
     opacity: 0;
 }
-.status_body .show_images{
+
+
+.status_body .show_images {
+    /*Mostrar Imágenes en el Cuerpo del Modal Contenedor de las imágenes seleccionadas */
     max-height: 270px;
     width: 100%;
     overflow-y: auto;
@@ -67,20 +92,26 @@
     padding: 10px 0;
     grid-gap: 10px;
 }
-.status_body .show_images #file_img{
+
+.status_body .show_images #file_img {
+    /* Contenedor de cada imagen/video */
     position: relative;
     width: 100%;
     height: 100%;
 }
+
 .status_body .show_images #file_img img,
-.status_body .show_images #file_img video{
+.status_body .show_images #file_img video {
+    /* Estilos de las imágenes y videos */
     display: block;
     object-fit: contain;
     width: 100%;
     height: 100%;
     max-height: 100px;
 }
-.status_body .show_images #file_img span{
+
+.status_body .show_images #file_img span {
+    /* Estilos del botón de eliminar imagen/video */
     position: absolute;
     top: -1px;
     right: -2px;
@@ -94,7 +125,10 @@
     font-weight: bolder;
     cursor: pointer;
 }
-.status_body .stream span{
+
+
+.status_body .stream span {
+    /*Stream de la Cámara Estilos del botón de cerrar stream */
     position: absolute;
     top: -10px;
     right: 5px;
@@ -103,6 +137,9 @@
     font-weight: 900;
     cursor: pointer;
 }
-.status_body .dropdown-menu{
+
+ 
+.status_body .dropdown-menu {
+    /*Menú Desplegable Ajuste de la posición del menú desplegable */
     transform: translate3d(-153px, -190px, 0px) !important;
 }

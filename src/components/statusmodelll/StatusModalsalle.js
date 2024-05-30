@@ -124,23 +124,23 @@ const StatusModalsalle = ({ closeModal }) => {
 
 
 
-    const handleChangeImages = e => {
-        const files = [...e.target.files]
+    const handleChangeImages = e => {//se encarga de gestionar las imágenes seleccionadas.
+        const files = [...e.target.files]//para almacenar los archivos seleccionados.
         let err = ""
-        let newImages = []
+        let newImages = []//Se definen una variable de errores let err = "" y un array para nuevas imágenes let newImages = [].
 
-        files.forEach(file => {
-            if (!file) return err = "File does not exist."
+        files.forEach(file => {//se aplican condiciones para validar los archivos (existencia, tamaño).
+            if(!file) return err = "File does not exist."
 
-            if (file.size > 1024 * 1024 * 5) {
+            if(file.size > 1024 * 1024 * 5){
                 return err = "The image/video largest is 5mb."
             }
 
-            return newImages.push(file)
+            return newImages.push(file)//Si no hay errores, se empujan las nuevas imágenes al array newImages con newImages.push(file).
         })
 
-        if (err) dispatch({ type: GLOBALTYPES.ALERT, payload: { error: err } })
-        setImages([...images, ...newImages])
+        if(err) dispatch({ type: GLOBALTYPES.ALERT, payload: {error: err} })
+        setImages([...images, ...newImages])//Se actualiza el estado local de las imágenes con setImages([...images, ...newImages]), agregando las nuevas imágenes al estado existente.
     }
 
     const deleteImages = (index) => {
