@@ -9,29 +9,40 @@ import { imageShow, videoShow } from '../../utils/mediaShow'
 import { imageUpload } from '../../utils/imageUpload'
 import { addMessage, getMessages, loadMoreMessages, deleteConversation } from '../../redux/actions/messageAction'
 import LoadIcon from '../../images/loading.gif'
-
+/*Estados Dinámicos:
+user: Información del usuario del chat.
+text: Texto del mensaje en composición.
+media: Archivos multimedia adjuntos.
+loadMedia: Estado de carga de archivos multimedia.
+data: Mensajes de la conversación actual.
+result: Número total de mensajes.
+page: Página actual para la paginación.
+isLoadMore: Indicador para cargar más mensajes.
+Estos estados y referencias permiten al componente manejar eficientemente la lógica del chat, incluyendo la carga y envío de mensajes, así como la paginación y la gestión de archivos multimedia.
+*/
 const RightSide = () => {
     const { auth, message, theme, socket, peer } = useSelector(state => state)
     const dispatch = useDispatch()
 
     const { id } = useParams()
-    const [user, setUser] = useState([])
-    const [text, setText] = useState('')
-    const [media, setMedia] = useState([])
-    const [loadMedia, setLoadMedia] = useState(false)
+    const [user, setUser] = useState([])//Almacena la información del usuario con el que se está chateando. Se inicializa como un array vacío.
+    const [text, setText] = useState('')//Almacena el texto del mensaje que el usuario está escribiendo. Se inicializa como una cadena vacía.
+    const [media, setMedia] = useState([])//Almacena los archivos multimedia (imágenes, videos, etc.) que el usuario adjunta al mensaje. Se inicializa como un array vacío.
 
-    const refDisplay = useRef()
-    const pageEnd = useRef()
+    const [loadMedia, setLoadMedia] = useState(false)//Indica si los archivos multimedia están en proceso de carga. Se inicializa como false.
 
-    const [data, setData] = useState([])
-    const [result, setResult] = useState(9)
-    const [page, setPage] = useState(0)
-    const [isLoadMore, setIsLoadMore] = useState(0)
+    const refDisplay = useRef()//Referencia al contenedor de mensajes, utilizada para desplazarse automáticamente hacia abajo cuando se envía un nuevo mensaje.
+    const pageEnd = useRef()//detectar cuando el usuario llega al final y cargar más mensajes
+
+    const [data, setData] = useState([])//Almacena los mensajes de la conversación actual. Se inicializa como un array vacío.
+    const [result, setResult] = useState(9)//Almacena el número total de mensajes obtenidos para la conversación actual. Se inicializa con 9
+    const [page, setPage] = useState(0)//Almacena el número de la página actual para la paginación de mensajes. Se inicializa con 0.
+    const [isLoadMore, setIsLoadMore] = useState(0)//Controla si se deben cargar más mensajes cuando el usuario se desplaza al final de la lista de mensajes. Se inicializa con 0
 
     const history = useHistory()
 
-    useEffect(() => {
-        const newData = message.data.find(item => item._id === id)
+    useEffect(() => {//El useEffect hook en este componente se encarga de actualizar el estado de los mensajes y la paginación cada vez que cambia el id de la conversación o los datos de mensajes en el estado global:
+        const newData = message.data.find(item => item._id === id)//Busca en message.data la conversación que coincide con el id actual. Si se encuentra, actualiza el estado local (data, result, page) con los mensajes, el número total de mensajes y la página actual de esa conversación.
         if(newData){
             setData(newData.messages)
             setResult(newData.result)
@@ -75,9 +86,9 @@ const RightSide = () => {
         setMedia(newArr)
     }
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e) => {//envío de mensajes en el chat, incluyendo el texto y los archivos multimedia adjuntos
         e.preventDefault()
-        if(!text.trim() && media.length === 0) return;
+        if(!text.trim() && media.length === 0) return;//Verifica que haya contenido en el mensaje.  Verifica que el mensaje no esté vacío. Si no hay texto (después de eliminar los espacios en blanco) y no hay archivos multimedia, la función retorna sin hacer nada.
         setText('')
         setMedia([])
         setLoadMedia(true)
@@ -85,7 +96,7 @@ const RightSide = () => {
         let newArr = [];
         if(media.length > 0) newArr = await imageUpload(media)
 
-        const msg = {
+        const msg = {//Creación del Objeto del Mensaje:Crea un objeto msg que contiene toda la información del mensaje: el ID del remitente (auth.user._id), el ID del destinatario (id), el texto del mensaje (text), los archivos multimedia cargados (newArr), y la marca de tiempo de creación (createdAt)
             sender: auth.user._id,
             recipient: id,
             text, 
@@ -95,7 +106,7 @@ const RightSide = () => {
 
         setLoadMedia(false)
         await dispatch(addMessage({msg, auth, socket}))
-        if(refDisplay.current){
+        if(refDisplay.current){//Propósito: Desplaza automáticamente la vista hacia el final del contenedor de mensajes, asegurando que el nuevo mensaje sea visible. Esto se hace solo si refDisplay.current no es nulo.
             refDisplay.current.scrollIntoView({behavior: 'smooth', block: 'end'})
         }
     }

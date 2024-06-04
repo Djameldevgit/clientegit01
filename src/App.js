@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-
+ 
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
 import axios from 'axios';
 import ActivationEmail from './pages/auth/ActivationEmail'
@@ -74,6 +74,22 @@ function App() {
 //se debe hacer lo mejor para estas cosas ya que la porgarmecio
   //<Route exact path="/pages/twiliosmsss" component={Tttwliosms} />
   //<Route exact path="/pages/notificacionesusuario" component={Notificacionesusuario} />
+  useEffect(() => {
+    const firstLogin = localStorage.getItem('firstLogin')
+    if(firstLogin){
+      const getToken = async () => {
+        const res = await axios.post('/api/refresh_token', null)
+        dispatch({ 
+          type: GLOBALTYPES.AUTH, 
+          payload: {
+              token: res.data.access_token,
+              user: res.data.user
+          } 
+      })
+      }
+      getToken()
+    }
+  },[auth.isLogged, dispatch])
 
  
   

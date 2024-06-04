@@ -14,6 +14,7 @@ import CardHeader from './homePost/post_card/CardHeader';
 //import Cardtitlesala from './homePost/post_card/Cardtitlesala'; <Cardtitlesala post={post} />
 import Informaciondecontacto from "./homePost/post_card/Informaciondecontacto";
 import Cardtitlesala from "./homePost/post_card/Cardtitlesala";
+import Contact from "./homePost/post_card/Contact";
  
 
 const PostCard = ({ post, theme }) => {
@@ -60,7 +61,10 @@ const PostCard = ({ post, theme }) => {
     <CardHeader post={post} />
     <Cardtitlesala  post={post}  />
     <CardBody post={post} theme={theme} />
-     
+ 
+     {isPostDetailPage && <Contact  post={post} />}
+
+
     {isPostDetailPage && <CardInfosala post={post} />}
     
     {isPostDetailPage && <Cardeventossala post={post} />}

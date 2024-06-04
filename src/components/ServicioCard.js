@@ -6,8 +6,7 @@ import { useLocation } from "react-router-dom";
 
 import CardBody from "./homeServicio/servicio_card/CardBody";
 import CardFooter from "./homeServicio/servicio_card/CardFooter";
-
-
+ 
 
 import CardInfoservicio from './homeServicio/servicio_card/CardInfoservicio';
 
@@ -16,6 +15,7 @@ import Cardserviciosdeservicio from './homeServicio/servicio_card/Cardserviciosd
 import CardHeaderr from './homeServicio/servicio_card/CardHeaderr';
 import Cardtitleservicio from './homeServicio/servicio_card/Cardtitleservicio';
 import Informaciondecontacto from "./homeServicio/servicio_card/Informaciondecontacto";
+import Contact from "./homeServicio/servicio_card/Contact";
 
 const ServicioCard = ({ servicio, theme }) => {
 
@@ -48,6 +48,7 @@ const ServicioCard = ({ servicio, theme }) => {
       <Cardtitleservicio servicio={servicio} />
       <CardBody servicio={servicio} theme={theme} />
       {isServicioDetailPage && <CardInfoservicio servicio={servicio} />}
+      {isServicioDetailPage && <Contact  servicio={servicio} />}
 
       {isServicioDetailPage && <Cardserviciosdeservicio servicio={servicio} />}
       {isServicioDetailPage && <CardFooterdisplay servicio={servicio} />}
