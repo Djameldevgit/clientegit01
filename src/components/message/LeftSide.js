@@ -11,14 +11,14 @@ const LeftSide = () => {
     const { auth, message, online } = useSelector(state => state)
     const dispatch = useDispatch()
 
-    const [search, setSearch] = useState('')//    almacena el término de búsqueda introducido por el usuario
-    const [searchUsers, setSearchUsers] = useState([])//lista de usuarios que coinciden con el término de búsqueda.
+    const [search, setSearch] = useState('')
+    const [searchUsers, setSearchUsers] = useState([])
 
     const history = useHistory()
     const { id } = useParams()
 
-    const pageEnd = useRef()//referencia para detectar cuando se alcanza el final de la lista para cargar más conversaciones.
-    const [page, setPage] = useState(0)//controla la paginación para cargar más conversaciones
+    const pageEnd = useRef()
+    const [page, setPage] = useState(0)
 
     
     const handleSearch = async e => {
@@ -35,7 +35,7 @@ const LeftSide = () => {
         }
     }
 
-    const handleAddUser = (user) => {//Cuando seleccionas un usuario para chatear, la aplicación cambia la URL a algo como /conversacion/usuario123.
+    const handleAddUser = (user) => {
         setSearch('')
         setSearchUsers([])
         dispatch({type: MESS_TYPES.ADD_USER, payload: {...user, text: '', media: []}})
@@ -82,8 +82,8 @@ const LeftSide = () => {
 
     return (
         <>
-            <form  type className="message_header" onSubmit={handleSearch} >
-                <input type="text" value={search}hidden={true}
+            <form className="message_header" onSubmit={handleSearch} >
+                <input type="text" value={search}
                 placeholder="Enter to Search..."
                 onChange={e => setSearch(e.target.value)} />
 

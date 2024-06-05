@@ -17,7 +17,7 @@ export const MESS_TYPES = {
 export const addMessage = ({msg, auth, socket}) => async (dispatch) =>{
     dispatch({type: MESS_TYPES.ADD_MESSAGE, payload: msg})
 
-    const { _id, avatar, fullname, username } = auth.//Propósito: Envía el mensaje al servidor WebSocket, que a su vez lo retransmite al destinatario en tiempo real.  El mensaje incluye información del usuario (ID, avatar, nombre completo, nombre de usuario) para que el destinatario pueda ver quién envió el mensaje.
+    const { _id, avatar, fullname, username } = auth.user
     socket.emit('addMessage', {...msg, user: { _id, avatar, fullname, username } })
     
     try {
