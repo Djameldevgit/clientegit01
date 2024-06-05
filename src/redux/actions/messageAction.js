@@ -27,21 +27,22 @@ export const addMessage = ({msg, auth, socket}) => async (dispatch) =>{
     }
 }
 
-export const getConversations = ({auth, page = 1}) => async (dispatch) => {
+export const getConversations = ({auth, page = 1}) => async (dispatch) => {// se utiliza para obtener las conversaciones de un usuario autenticado desde el servido para actualiza el estado de Redux con las nuevas conversaciones.
+    //{auth, page = 1}: El parámetro auth contiene la información de autenticación del usuario, mientras que page indica la página actual de conversaciones a solicitar (por defecto es 1)
     try {
         const res = await getDataAPI(`conversations?limit=${page * 9}`, auth.token)
         
-        let newArr = [];
+        let newArr = [];//Para cada conversación, se recorren los destinatarios (recipients). Si el ID del destinatario no coincide con el ID del usuario autenticado, se agrega a un nuevo array llamado newArr
         res.data.conversations.forEach(item => {
             item.recipients.forEach(cv => {
                 if(cv._id !== auth.user._id){
-                    newArr.push({...cv, text: item.text, media: item.media, call: item.call})
+                    newArr.push({...cv, text: item.text, media: item.media, call: item.call})//Al agregar un destinatario al newArr, se le asignan propiedades adicionales como text, media, y call, que provienen de la conversación original.
                 }
             })
         })
 
         dispatch({
-            type: MESS_TYPES.GET_CONVERSATIONS, 
+            type: MESS_TYPES.GET_CONVERSATIONS, //se despacha una acción de tipo MESS_TYPES.GET_CONVERSATIONS con el nuevo array de conversaciones y la cantidad total de conversaciones como payload.
             payload: {newArr, result: res.data.result}
         })
 
