@@ -69,11 +69,7 @@ function App() {
   const dispatch = useDispatch()
   const userBlocked = user && user.bloquepost === 'bloque-user';
   
-
-
-//se debe hacer lo mejor para estas cosas ya que la porgarmecio
-  //<Route exact path="/pages/twiliosmsss" component={Tttwliosms} />
-  //<Route exact path="/pages/notificacionesusuario" component={Notificacionesusuario} />
+ 
   useEffect(() => {
     const firstLogin = localStorage.getItem('firstLogin')
     if(firstLogin){
@@ -101,24 +97,7 @@ function App() {
     dispatch({ type: GLOBALTYPES.SOCKET, payload: socket })
     return () => socket.close()
   }, [dispatch])
-
-/*  useEffect(() => {
-    const firstLogin = localStorage.getItem('firstLogin')
-    if(firstLogin){
-      const refreshToken= async () => {
-        const res = await axios.post('/api/refresh_token', null)
-        dispatch({ 
-          type: GLOBALTYPES.AUTH, 
-          payload: {
-              token: res.data.access_token,
-              user: res.data.user
-          } 
-      })
-      }
-      refreshToken()
-    }
-  },[auth.user, dispatch])
-*/
+ 
 
   useEffect(() => {
     dispatch(getPosts())
