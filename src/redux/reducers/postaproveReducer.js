@@ -26,9 +26,12 @@ const postaproveReducer = (state = initialState, action) => {
                   result: action.payload.result,
                   page: action.payload.page
                 };
-   
-            case POSTAPROVE_TYPES.LOADING_POST:
-                return action.payload;
+                case POSTAPROVE_TYPES.LOADING_POSTS_PENDIENTE:
+                    return {
+                        ...state,
+                        loading: action.payload
+                    };
+            
 
             case POSTAPROVE_TYPES.APROVE_POST_PENDIENTE:
                 const updatedpost = state.posts.map((post) =>

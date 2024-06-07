@@ -72,7 +72,7 @@ export const getServiciosPendientesss = (token) => async (dispatch) => {
 
 export const aprovarServicioPendiente = (servicio, estado, auth) => async (dispatch) => {
     try {
-        dispatch({ type: SERVICIOAPROVE_TYPES.LOADING_SERVICIO, payload: true });
+        dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true} });
       
         const res = await patchDataAPI(`aprovarservicio/${servicio._id}/aprovado`, { estado }, auth.token);
 
@@ -80,8 +80,8 @@ export const aprovarServicioPendiente = (servicio, estado, auth) => async (dispa
             type: SERVICIOAPROVE_TYPES.APROVE_SERVICIO_PENDIENTE,
             payload: res.data,
         });
-
-        dispatch({ type: SERVICIOAPROVE_TYPES.LOADING_SERVICIO, payload: false });
+        dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: false} });
+  
         dispatch({ type: GLOBALTYPES.ALERT, payload: { success: res.data.msg } });
     } catch (error) {
         const errorMsg = error.response ? error.response.data.msg : 'Unexpected error occurred';

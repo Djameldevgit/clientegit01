@@ -10,6 +10,14 @@ const initialState = {
 
 const servicioaproveReducer = (state = initialState, action) => {
     switch (action.type) {
+
+        case SERVICIOAPROVE_TYPES.LOADING_SERVICIO:
+            return {
+                ...state,
+                loading: action.payload
+            };
+
+
         case SERVICIOAPROVE_TYPES.CREATE_SERVICIO_PENDIENTE:
             return {
                 ...state,
@@ -24,11 +32,7 @@ const servicioaproveReducer = (state = initialState, action) => {
                 page: action.payload.page
             };
 
-        case SERVICIOAPROVE_TYPES.LOADING_SERVICIO:
-            return {
-                ...state,
-                loading: action.payload
-            };
+        
 
         case SERVICIOAPROVE_TYPES.APROVE_SERVICIO_PENDIENTE:
             const updatedServicio = state.servicios.map((servicio) =>

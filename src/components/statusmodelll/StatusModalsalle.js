@@ -190,8 +190,9 @@ const StatusModalsalle = ({ closeModal }) => {
         setPostdata({
             content: '', direcion: '', wilaya: '', commune: '', specifications: [], discripcion: '', pricesala: '', dinero: '', negociable: '', nomprenom: '', telefono: '', email: '', web: '', informacion: false, comentarios: false
         });
-        setImages([]);
-        dispatch({ type: GLOBALTYPES.STATUS, payload: false });
+        setImages([])
+        if(tracks) tracks.stop()
+        dispatch({ type: GLOBALTYPES.STATUS, payload: false})
     }
 
 
@@ -246,7 +247,7 @@ const StatusModalsalle = ({ closeModal }) => {
                         <span onClick={() => dispatch({
                             type: GLOBALTYPES.STATUS, payload: false
                         })}>
-                            <span onClick={closeModal}>&times;</span>
+                             
                         </span>
                     </div>
 

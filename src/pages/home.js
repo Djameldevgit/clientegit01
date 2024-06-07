@@ -139,13 +139,13 @@ const Home = () => {
                                     </li>
 
                                     <li className="sidebar-dropdown">
-                                        <Link className="dropdown-item" to="/pages/salasfiestas">
+                                        <Link className="dropdown-item" to="/salasfiestas">
                                             <i className="fas fa-gem"></i>
                                             <span>Salle des fêtes</span>
                                         </Link>
                                     </li>
                                     <li className="sidebar-dropdown">
-                                        <Link className="dropdown-item" to="/pages/cervicios">
+                                        <Link className="dropdown-item" to="/cervicios">
                                             <i className="fas fa-tools"></i>
                                             <span>Services</span>
                                         </Link>
@@ -251,7 +251,7 @@ const Home = () => {
                                     </li>
 
                                     <li className="sidebar-dropdown">
-                                        <Link className="dropdown-item" to="/pages/categoriaslista/cervices">
+                                        <Link className="dropdown-item" to="/categoriaslista/cervices">
                                             <i className="fas fa-plus-circle"></i>
                                             <span>Ajouter Annonce</span>
                                         </Link>
@@ -267,7 +267,7 @@ const Home = () => {
                                         <div className="sidebar-submenu">
                                             <ul>
                                                 <li className=" ">
-                                                    <Link className="dropdown-item" to="/pages/categoriaslista/cervices">
+                                                    <Link className="dropdown-item" to="/categoriaslista/cervices">
                                                         <i className="fa fa-user-alt text-green" />
                                                         <span>Mon profil</span>
                                                     </Link>
@@ -291,7 +291,7 @@ const Home = () => {
                                         <div className="sidebar-submenu">
                                             <ul>
                                                 <li className=" ">
-                                                    <Link className="dropdown-item" to="/pages/categoriaslista/cervices">
+                                                    <Link className="dropdown-item" to="/categoriaslista/cervices">
                                                         <i className="fa fa-sign-in-alt text-green" />
                                                         <span>Mes Annonces</span>
                                                     </Link>
@@ -339,7 +339,7 @@ const Home = () => {
                                             <div className="sidebar-submenu">
                                                 <ul>
                                                     <li className=" ">
-                                                        <Link className="dropdown-item" to="/pages/administracion/autentication/autenticationn">
+                                                        <Link className="dropdown-item" to="/administracion/autentication/autenticationn">
                                                             <i className="fa fa-envelope  text-info" />
                                                             <span>
                                                             Authentification et activation</span>
@@ -369,13 +369,13 @@ const Home = () => {
                                     </li>
 
                                     <li className="sidebar-dropdown">
-                                        <Link className="dropdown-item" to="/pages/salasfiestas">
+                                        <Link className="dropdown-item" to="/salasfiestas">
                                             <i className="fas fa-gem"></i>
                                             <span>Salle des fêtes</span>
                                         </Link>
                                     </li>
                                     <li className="sidebar-dropdown">
-                                        <Link className="dropdown-item" to="/pages/cervicios">
+                                        <Link className="dropdown-item" to="/cervicios">
                                             <i className="fas fa-tools"></i>
                                             <span>Services</span>
                                         </Link>
@@ -431,7 +431,7 @@ const Home = () => {
                     <nav id="sidebar" className="sidebar-wrapper">
                         <div className="sidebar-content">
                             <div className="sidebar-brand">
-                                <Link to="/pages/administracion/index" style={{ color: 'white', textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
+                                <Link to="/administracion/index" style={{ color: 'white', textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
 
                                     <span style={{ fontSize: '16px' }}>Administration</span>
                                 </Link>
@@ -480,57 +480,57 @@ const Home = () => {
                                     
 
                                     <li className="sidebar-dropdown">
-                                        <Link className="dropdown-item" to="/pages/categoriaslista/cervices">
+                                        <Link className="dropdown-item" to="/categoriaslista/cervices">
                                             <i className="fas fa-plus-circle"></i>
                                             <span>Ajouter Annonce</span>
                                         </Link>
                                     </li>
                                     <li className="sidebar-dropdown">
-                                    <Link className="dropdown-item" to="/pages/categoriaslista/cervices">
+                                    <Link className="dropdown-item" to="/categoriaslista/cervices">
                                         <i className="fas fa-plus-circle"></i>
                                         <span>Ajouter Annonce</span>
                                     </Link>
                                 </li>
                                 <li className="sidebar-dropdown">
-                                    <Link className="dropdown-item" to="/pages/administracion/fechadeexpiracionuser">
+                                    <Link className="dropdown-item" to="/administracion/fechadeexpiracionuser">
                                         <i className="fas fa-plus-circle"></i>
                                         <span>fehca expiracion</span>
                                     </Link>
                                 </li>
 
                                 <li className="sidebar-dropdown">
-                                    <Link className="dropdown-item" to="/pages/administracion/postspendientes">
+                                    <Link className="dropdown-item" to="/administracion/postspendientes">
                                         <i className="fa fa-plus-circle" />
                                         <span>Aprouve salle fetes</span>
                                     </Link>
                                 </li>
                                 <li className="sidebar-dropdown">
-                                    <Link className="dropdown-item" to="/pages/administracion/serviciospendientes">
+                                    <Link className="dropdown-item" to="/administracion/serviciospendientes">
                                         <i className="fa fa-plus-circle" />
                                         <span>Aprouve services</span>
                                     </Link>
                                 </li>
                                 <li className="sidebar-dropdown">
-                                    <Link className="dropdown-item" to="/pages/users/usersposts">
+                                    <Link className="dropdown-item" to="/users/usersposts">
                                         <i className="fa fa-plus-circle" />
                                         <span>Liste Utilizateurs</span>
                                     </Link>
                                 </li>
 
                                 <li className="sidebar-dropdown">
-                                    <Link className="dropdown-item" to="/pages/roles/userrole">
+                                    <Link className="dropdown-item" to="/roles/userrole">
                                         <i className="fa fa-plus-circle" />
                                         <span>Liste Roles</span>
                                     </Link>
                                 </li>
                                 <li className="sidebar-dropdown">
-                                    <Link className="dropdown-item" to="/pages/bloqueos/blockposts">
+                                    <Link className="dropdown-item" to="/bloqueos/blockposts">
                                         <i className="fa fa-plus-circle" />
                                         <span>Block post</span>
                                     </Link>
                                 </li>
                                 <li className="sidebar-dropdown">
-                                    <Link className="dropdown-item" to="/pages/bloqueos/blockcomments">
+                                    <Link className="dropdown-item" to="/bloqueos/blockcomments">
                                         <i className="fa fa-plus-circle" />
                                         <span>Block comment</span>
                                     </Link>
@@ -545,7 +545,7 @@ const Home = () => {
                                         <div className="sidebar-submenu">
                                             <ul>
                                                 <li className=" ">
-                                                    <Link className="dropdown-item" to="/pages/categoriaslista/cervices">
+                                                    <Link className="dropdown-item" to="/categoriaslista/cervices">
                                                         <i className="fa fa-user-alt text-green" />
                                                         <span>Mon profil</span>
                                                     </Link>
@@ -569,7 +569,7 @@ const Home = () => {
                                         <div className="sidebar-submenu">
                                             <ul>
                                                 <li className=" ">
-                                                    <Link className="dropdown-item" to="/pages/categoriaslista/cervices">
+                                                    <Link className="dropdown-item" to="/categoriaslista/cervices">
                                                         <i className="fa fa-sign-in-alt text-green" />
                                                         <span>Mes Annonces</span>
                                                     </Link>
@@ -641,13 +641,13 @@ const Home = () => {
                                     </li>
 
                                     <li className="sidebar-dropdown">
-                                        <Link className="dropdown-item" to="/pages/salasfiestas">
+                                        <Link className="dropdown-item" to="/salasfiestas">
                                             <i className="fas fa-gem"></i>
                                             <span>Salle des fêtes</span>
                                         </Link>
                                     </li>
                                     <li className="sidebar-dropdown">
-                                        <Link className="dropdown-item" to="/pages/cervicios">
+                                        <Link className="dropdown-item" to="/cervicios">
                                             <i className="fas fa-tools"></i>
                                             <span>Services</span>
                                         </Link>

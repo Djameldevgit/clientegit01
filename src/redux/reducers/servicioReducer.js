@@ -13,6 +13,14 @@ const initialState = {
 const servicioReducer = (state = initialState, action) => {
  
     switch (action.type) {
+
+        case SERVICIOAPROVE_TYPES.LOADING_SERVICIO:
+            return {
+                ...state,
+                loading: action.payload,
+            };
+
+
         case SERVICIO_TYPES.GET_SERVICIOS:
             return {
                 ...state,
@@ -54,11 +62,7 @@ const servicioReducer = (state = initialState, action) => {
                 ...state,
                 servicios: DeleteData(state.servicios, action.payload._id),
             };
-        case SERVICIOAPROVE_TYPES.LOADING_SERVICIO:
-            return {
-                ...state,
-                loading: action.payload,
-            };
+         
         default:
             return state;
     }

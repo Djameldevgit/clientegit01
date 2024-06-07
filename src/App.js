@@ -129,15 +129,16 @@ function App() {
     }
   }, [])
 
-
- 
-
+//sintaxis de template literals y operadores lógicos para aplicar una clase condicionalmente al elemento div
+ //esta línea de código agrega dinámicamente la clase CSS mode al div si cualquiera de las variables status o modal es verdadera. Esto es útil para aplicar diferentes estilos dependiendo del estado de la aplicación.
+//PageRender: Renderiza dinámicamente páginas basadas en la URL actual. Si la página solicitada no existe, muestra un componente NotFound.
+//PrivateRouter: Protege rutas específicas redirigiendo a la página de inicio (/) si el usuario no ha iniciado sesión.
   return (
     <Router>
       <Alert />
 
       <input type="checkbox" id="theme" />
-      <div className={`App ${(status || statusservicio || statussearch || statusadmin || modal) && 'mode'}`}>
+      <div className={`App ${(status || statusservicio || statussearch || statusadmin || modal) && 'mode'}`}>     
         <div className="main">
           <Header />
 
@@ -158,36 +159,36 @@ function App() {
           <Route exact path="/login" component={Login} />
           <Route exact path="/user/dashboard" component={Dashboard} />
 
-          <Route exact path="/pages/cervicios" component={Cervicios} />
+          <Route exact path="/cervicios" component={Cervicios} />
 
-          <Route exact path="/pages/administracion/postspendientes" component={Postspendientes} />
+          <Route exact path="/administracion/postspendientes" component={Postspendientes} />
 
 
           
 
-          <Route exact path="/pages/administracion/serviciospendientes" component={Serviciospendientes} />
-          <Route exact path="/pages/categoriaslista/cervices" component={Cervices} />
+          <Route exact path="/administracion/serviciospendientes" component={Serviciospendientes} />
+          <Route exact path="/categoriaslista/cervices" component={Cervices} />
 
 
-          <Route exact path="/pages/administracion/index" component={Index} />
+          <Route exact path="/administracion/index" component={Index} />
 
  
-          <Route exact path="/pages/bloqueos/blockposts" component={Blockposts} />
+          <Route exact path="/bloqueos/blockposts" component={Blockposts} />
 
           <Route
-            path="/pages/bloqueos"
+            path="/bloqueos"
             render={() => (userBlocked ? <Bloqueos /> : <Redirect to="/" />)}
           />
-          <Route exact path="/pages/salasfiestas" component={Salasfiestas} />
-          <Route exact path="/pages/roles/userRole" component={UserRole} />
-          <Route exact path="/pages/bloqueos/blockcomments" component={auth.token ? Blockcomments : Login} />
-          <Route exact path="/pages/bloqueos/blockposts" component={Blockposts} />
+          <Route exact path="/salasfiestas" component={Salasfiestas} />
+          <Route exact path="/roles/userRole" component={UserRole} />
+          <Route exact path="/bloqueos/blockcomments" component={auth.token ? Blockcomments : Login} />
+          <Route exact path="/bloqueos/blockposts" component={Blockposts} />
 
-          <Route exact path="/pages/users/usersposts" component={Usersposts} />
-          <Route exact path="/pages/infoclient" component={Infoclient} />
+          <Route exact path="/users/usersposts" component={Usersposts} />
+          <Route exact path="/infoclient" component={Infoclient} />
 
           <Route
-            path="/pages/bloqueos"
+            path="/bloqueos"
             render={() => (userBlocked ? <Bloqueos /> : <Redirect to="/" />)}
           />
           <PrivateRouter exact path="/:page" component={PageRender} />
