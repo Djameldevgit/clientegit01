@@ -1,64 +1,52 @@
-
-
 import React, { useState, useEffect } from "react";
-
 import { useLocation } from "react-router-dom";
-
 import CardBody from "./homeServicio/servicio_card/CardBody";
 import CardFooter from "./homeServicio/servicio_card/CardFooter";
- 
-
 import CardInfoservicio from './homeServicio/servicio_card/CardInfoservicio';
-
-import CardFooterdisplay from './homeServicio/servicio_card/CardFooterdisplay';
 import Cardserviciosdeservicio from './homeServicio/servicio_card/Cardserviciosdeservicio';
-import CardHeaderr from './homeServicio/servicio_card/CardHeaderr';
+ 
 import Cardtitleservicio from './homeServicio/servicio_card/Cardtitleservicio';
 import Informaciondecontacto from "./homeServicio/servicio_card/Informaciondecontacto";
-import Contact from "./homeServicio/servicio_card/Contact";
+ 
+import CardHeaderr from "./homeServicio/servicio_card/CardHeaderr";
+ 
 
 const ServicioCard = ({ servicio, theme }) => {
-
   const location = useLocation();
   const isServicioDetailPage = location.pathname.startsWith(`/servicio/${servicio._id}`);
-  const [showFooter, setShowFooter] = useState(false);
-  const [commentsVisible, setCommentsVisible] = useState(false);
+
+  const [showComments, setShowComments] = useState(false);
+  const [showInfo, setShowInfo] = useState(false);
 
   useEffect(() => {
-    // Mostrar el CardFooter en la página de detalles del servicio si está autorizado
-    if (isServicioDetailPage && servicio.informacion === 'permitirinformacion') {
-      setShowFooter(true);
+    if (isServicioDetailPage) {
+      setShowComments(servicio.comentarios === true);
+      setShowInfo(servicio.informacion === true);
     }
-  }, [isServicioDetailPage, servicio.informacion]);
-
-
-
-
+  }, [isServicioDetailPage, servicio.comentarios, servicio.informacion]);
 
   const renderInformacionContacto = () => {
-    if (!isServicioDetailPage || servicio.informacion !== 'permitirinformacion') return null;
+    if (!showInfo) return null;
     return <Informaciondecontacto servicio={servicio} />;
   };
 
-
-
   return (
     <div className="card">
-      <CardHeaderr servicio={servicio} />
+      {<CardHeaderr servicio={servicio}/>}
       <Cardtitleservicio servicio={servicio} />
       <CardBody servicio={servicio} theme={theme} />
       {isServicioDetailPage && <CardInfoservicio servicio={servicio} />}
-      {isServicioDetailPage && <Contact  servicio={servicio} />}
-
       {isServicioDetailPage && <Cardserviciosdeservicio servicio={servicio} />}
-      {isServicioDetailPage && <CardFooterdisplay servicio={servicio} />}
-      {isServicioDetailPage && renderInformacionContacto()}
-
-
-     
-
+      {showInfo && renderInformacionContacto()}
+      {showComments && <CardFooter servicio={servicio} />}
+ 
     </div>
   );
 };
 
 export default ServicioCard;
+
+
+       
+   
+ 

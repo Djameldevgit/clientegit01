@@ -21,7 +21,7 @@ const Contact = () => {
 
   return (
     <div>
-      <button  className='btn'  onClick={() => handleAddUser(user)} />contacto
+     <button   onClick={() => handleAddUser(user)}  >button  contact</button>
     </div>
   )
 }

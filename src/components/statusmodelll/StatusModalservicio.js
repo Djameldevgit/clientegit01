@@ -23,200 +23,187 @@ import { FormGroup } from '@material-ui/core';
 
 
 
-const StatusModalservicio = ({ closeModal }) => {
+const StatusModalservicio = () => {
 
     const { auth, theme, statusservicio, socket } = useSelector(state => state)
     const { user } = useSelector(state => state.auth);
     const { bloquepost } = user;
 
     const dispatch = useDispatch()
-    const initialState = { contentservicio: '', direcion: '', wilaya: '', commune: '', discripcion: '', priceservicio: '', dinero: '', negociable: '', nomprenom: '', telefono: '', email: '', web: '', informacion: ''   }
+    const initialState = {
+         contentservicioservicio: '', direccion: '', wilaya: '', commune: '', discripcion: '', priceservicio: '', dinero: '', negociable: '', nomprenom: '', telefono: '', email: '', web: '', informacion: false ,comentarios: false  }
 
+        
+         
+         const [servicioData, setServiciodata] = useState(initialState);
+         const [images, setImages] = useState([])
+        
+         const [selectedWilaya, setSelectedWilaya] = useState([]);
+         const [selectedCommune, setSelectedCommune] = useState([]);
+         const [stream, setStream] = useState(false)
+         const videoRef = useRef()
+         const refCanvas = useRef()
+         const [tracks, setTracks] = useState('')
+      
+     
+     
+         const handleStream = () => {
+             setStream(true)
+             if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                 navigator.mediaDevices.getUserMedia({ video: true })
+                     .then(mediaStream => {
+                         videoRef.current.srcObject = mediaStream
+                         videoRef.current.play()
+     
+                         const track = mediaStream.getTracks()
+                         setTracks(track[0])
+                     }).catch(err => console.log(err))
+             }
+         }
+     
+         const handleCapture = () => {
+             const width = videoRef.current.clientWidth;
+             const height = videoRef.current.clientHeight;
+     
+             refCanvas.current.setAttribute("width", width)
+             refCanvas.current.setAttribute("height", height)
+     
+             const ctx = refCanvas.current.getContext('2d')
+             ctx.drawImage(videoRef.current, 0, 0, width, height)
+             let URL = refCanvas.current.toDataURL()
+             setImages([...images, { camera: URL }])
+         }
+     
+         const handleStopStream = () => {
+             tracks.stop()
+             setStream(false)
+         }
+     
+     
+     
+         const handleWilayaChange = (event) => {
+             const selectedWilaya = event.target.value;
+             setSelectedWilaya(selectedWilaya);
+     
+             const wilayaEncontrada = communesjson.find((wilaya) => wilaya.wilaya === selectedWilaya);
+             const communes = wilayaEncontrada && wilayaEncontrada.commune ? wilayaEncontrada.commune : [];
+     
+             if (communes.length > 0) {
+                 setSelectedCommune(communes[0]);
+             } else {
+                 setSelectedCommune('');
+             }
+         };
+     
+     
+     
+     
+         const handleCommuneChange = (event) => {
+             setSelectedCommune(event.target.value);
+         };
+     
+     
+     
+     
+         const handleChangeImages = e => {//se encarga de gestionar las imágenes seleccionadas.
+             const files = [...e.target.files]//para almacenar los archivos seleccionados.
+             let err = ""
+             let newImages = []//Se definen una variable de errores let err = "" y un array para nuevas imágenes let newImages = [].
+     
+             files.forEach(file => {//se aplican condiciones para validar los archivos (existencia, tamaño).
+                 if(!file) return err = "File does not exist."
+     
+                 if(file.size > 1024 * 1024 * 5){
+                     return err = "The image/video largest is 5mb."
+                 }
+     
+                 return newImages.push(file)//Si no hay errores, se empujan las nuevas imágenes al array newImages con newImages.push(file).
+             })
+     
+             if(err) dispatch({ type: GLOBALTYPES.ALERT, payload: {error: err} })
+             setImages([...images, ...newImages])//Se actualiza el estado local de las imágenes con setImages([...images, ...newImages]), agregando las nuevas imágenes al estado existente.
+         }
+     
+         const deleteImages = (index) => {
+             const newArr = [...images]
+             newArr.splice(index, 1)
+             setImages(newArr)
+         }
+     
+         const handleChangeInput = (e, value) => {
+             if (value !== undefined) {
+                 // Manejar el Slider
+                 setServiciodata({ ...servicioData, [e]: value });
+             } else {
+                 // Manejar los selects
+                 const { name, value } = e.target;
+                 setServiciodata({ ...servicioData, [name]: value });
+             }
+         };
+     
+     
+       
+     
+     
+     
+         const handleSubmit = (e) => {
+             e.preventDefault();
+     
+             if (images.length === 0)
+                 return dispatch({
+                     type: GLOBALTYPES.ALERT,
+                     payload: { error: 'Veuillez ajouter votre photo.' },
+                 });
+     
+     
+     
+             if (statusservicio.onEdit) {
+                 dispatch(updateServicio({ servicioData,  wilaya: selectedWilaya, commune: selectedCommune , images, auth, statusservicio }));
+             } else {
+                 dispatch(createServicioPendiente({ servicioData,  wilaya: selectedWilaya, commune: selectedCommune,
+                      images, auth, socket }));
+             }
+     
+     
+             setServiciodata({
+                  contentservicio: '', direccion: '', wilaya: '', commune: '', discripcion: '', pricesala: '', dinero: '', negociable: '', nomprenom: '', telefono: '', email: '', web: '', informacion: false, comentarios: false
+             });
+             setImages([])
+             if(tracks) tracks.stop()
+             dispatch({ type: GLOBALTYPES.STATUSSERVICIO, payload: false})
+         }
+     
+     
+     
+     
+         const wilayasOptions = communesjson.map((wilaya, index) => (
+             <option key={index} value={wilaya.wilaya}>
+                 {wilaya.wilaya}
+             </option>
+         ));
+     
+         const communesOptions = communesjson.find((wilaya) => wilaya.wilaya === selectedWilaya)?.commune?.map((commune, index) => (
+             <option key={index} value={commune}>
+                 {commune}
+             </option>
+         ));
+     
+     
+         useEffect(() => {
+            if (statusservicio.onEdit) {
+        
+               
+                setServiciodata({ ...statusservicio});
 
-    const [servicioData, setServiciodata] = useState(initialState);
-    const [images, setImages] = useState([])
-
-    const [selectedWilaya, setSelectedWilaya] = useState([]);
-    const [selectedCommune, setSelectedCommune] = useState([]);
-    const [stream, setStream] = useState(false)
-    const videoRef = useRef()
-    const refCanvas = useRef()
-    const [tracks, setTracks] = useState('')
-
-
-
-    const handleStream = () => {
-        setStream(true)
-        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-            navigator.mediaDevices.getUserMedia({ video: true })
-                .then(mediaStream => {
-                    videoRef.current.srcObject = mediaStream
-                    videoRef.current.play()
-
-                    const track = mediaStream.getTracks()
-                    setTracks(track[0])
-                }).catch(err => console.log(err))
-        }
-    }
-
-    const handleCapture = () => {
-        const width = videoRef.current.clientWidth;
-        const height = videoRef.current.clientHeight;
-
-        refCanvas.current.setAttribute("width", width)
-        refCanvas.current.setAttribute("height", height)
-
-        const ctx = refCanvas.current.getContext('2d')
-        ctx.drawImage(videoRef.current, 0, 0, width, height)
-        let URL = refCanvas.current.toDataURL()
-        setImages([...images, { camera: URL }])
-    }
-
-    const handleStopStream = () => {
-        tracks.stop()
-        setStream(false)
-    }
-
-
-
-    const handleWilayaChange = (event) => {
-        const selectedWilaya = event.target.value;
-        setSelectedWilaya(selectedWilaya);
-
-        const wilayaEncontrada = communesjson.find((wilaya) => wilaya.wilaya === selectedWilaya);
-        const communes = wilayaEncontrada && wilayaEncontrada.commune ? wilayaEncontrada.commune : [];
-
-        if (communes.length > 0) {
-            setSelectedCommune(communes[0]);
-        } else {
-            setSelectedCommune('');
-        }
-    };
-
-
-
-
-    const handleCommuneChange = (event) => {
-        setSelectedCommune(event.target.value);
-    };
-
-
-
-
-    const handleChangeImages = e => {
-        const files = [...e.target.files]
-        let err = ""
-        let newImages = []
-
-        files.forEach(file => {
-            if (!file) return err = "File does not exist."
-
-            if (file.size > 1024 * 1024 * 5) {
-                return err = "The image/video largest is 5mb."
+                setImages(statusservicio.images);
+        
+                setSelectedWilaya(statusservicio.wilaya)
+                setSelectedCommune(statusservicio.commune)
+        
             }
-
-            return newImages.push(file)
-        })
-
-        if (err) dispatch({ type: GLOBALTYPES.ALERT, payload: { error: err } })
-        setImages([...images, ...newImages])
-    }
-
-    const deleteImages = (index) => {
-        const newArr = [...images]
-        newArr.splice(index, 1)
-        setImages(newArr)
-    }
-
-    const handleChangeInput = (e, value) => {
-        if (value !== undefined) {
-            // Manejar el Slider
-            setServiciodata({ ...servicioData, [e]: value });
-        } else {
-            // Manejar los selects
-            const { name, value } = e.target;
-            setServiciodata({ ...servicioData, [name]: value });
-        }
-    };
-
-
-
-
-
-
-
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-
-        if (images.length === 0)
-            return dispatch({
-                type: GLOBALTYPES.ALERT,
-                payload: { error: 'Veuillez ajouter votre photo.' },
-            });
-
-
-
-        if (statusservicio.onEdit) {
-            dispatch(updateServicio({ servicioData, wilaya: selectedWilaya, commune: selectedCommune, images, auth, statusservicio }));
-        } else {
-            dispatch(createServicioPendiente({ servicioData, wilaya: selectedWilaya, commune: selectedCommune, images, auth, socket }));
-        }
-
-
-        setServiciodata({
-            contentservicio: '', direcion: '', wilaya: '', commune: '', discripcion: '', priceservicio: '', dinero: '', negociable: '', nomprenom: '', telefono: '', email: '', web: '', informacion: false,
-        });
-        setImages([]);
-        dispatch({ type: GLOBALTYPES.STATUSSERVICIO, payload: false });
-    }
-
-
-
-
-    const wilayasOptions = communesjson.map((wilaya, index) => (
-        <option key={index} value={wilaya.wilaya}>
-            {wilaya.wilaya}
-        </option>
-    ));
-
-    const communesOptions = communesjson.find((wilaya) => wilaya.wilaya === selectedWilaya)?.commune?.map((commune, index) => (
-        <option key={index} value={commune}>
-            {commune}
-        </option>
-    ));
-
-
-
-
-    useEffect(() => {
-        if (statusservicio.onEdit) {
-
-
-            setServiciodata({ ...statusservicio.servicioData });
-            setImages(statusservicio.images);
-
-            setSelectedWilaya(statusservicio.wilaya)
-            setSelectedCommune(statusservicio.commune)
-
-        }
-    }, [statusservicio])
-
-
-    /*
-          <div className="form-group" >
-                            <label className="text-danger">Titre:</label>
-                            <select onChange={(e) => handleChangeInput(e)} value={servicioData.contentservicio} name="contentservicio" placeholder="Titre" className="form-control" disabled={bloquepost === 'bloque-post'}  >
-                                <option > Options  </option>
-                                <option value="Service">Service</option>
-                                <option value="Salle des fêtes" disabled>Salle des fêtes</option>
+        }, [statusservicio])
     
-                            </select>
-                        </div>
-                        <br></br>*/
-
-
-
+ 
 
     return (
 
@@ -232,8 +219,7 @@ const StatusModalservicio = ({ closeModal }) => {
                         <span onClick={() => dispatch({
                             type: GLOBALTYPES.STATUSSERVICIO, payload: false
                         })}>
-                            <span onClick={closeModal}>&times;</span>
-                        </span>
+                          </span>
                     </div>
 
 
@@ -279,7 +265,7 @@ const StatusModalservicio = ({ closeModal }) => {
 
                     <div className="form-group" >
                         <label className="text-danger">Adresse </label>
-                        <input onChange={(e) => handleChangeInput(e)} name="direcion" placeholder='Adresse' value={servicioData.direcion} className="form-control" disabled={bloquepost === 'bloque-post'} />
+                        <input onChange={(e) => handleChangeInput(e)} name="direccion" placeholder='Adresse' value={servicioData.direccion} className="form-control" disabled={bloquepost === 'bloque-post'} />
                     </div>
 
                     <br></br>
@@ -425,6 +411,32 @@ const StatusModalservicio = ({ closeModal }) => {
                         />
 
                     </FormGroup>
+
+
+
+
+                    <div className="option-details">
+                        <FormGroup row>
+                            <FormControlLabel
+                                control={
+                                    <Checkbox
+                                        checked={servicioData.comentarios}
+                                        onChange={(e) =>
+                                            setServiciodata({
+                                                ...servicioData,
+                                                comentarios: e.target.checked,
+                                            })
+                                        }
+                                    />
+                                }
+                                label="Activer les commentaires"
+                            />
+
+
+
+
+                        </FormGroup>
+                    </div>
                     <br></br>
 
 

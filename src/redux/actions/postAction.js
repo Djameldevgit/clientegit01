@@ -55,7 +55,7 @@ export const updatePost = ({ postData, wilaya, commune, specifications, images, 
 
         const updatedData = {
             content: postData.content,
-            direcion: postData.direcion,
+            direccion: postData.direccion,
             wilaya,
             commune,
             specifications,

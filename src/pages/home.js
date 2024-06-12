@@ -152,6 +152,9 @@ const Home = () => {
                                     </li>
 
 
+                                
+
+
 
                                 </ul>
                             </div>
@@ -249,7 +252,18 @@ const Home = () => {
                                     <li className="header-menu">
                                         <span>Mon Compte</span>
                                     </li>
-
+                                    <li className="sidebar-dropdown">
+                                        <Link className="dropdown-item" to="/mapp">
+                                            <i className="fas fa-tools"></i>
+                                            <span>Map</span>
+                                        </Link>
+                                    </li>
+                                    <li className="sidebar-dropdown">
+                                        <Link className="dropdown-item" to="/carddmap">
+                                            <i className="fas fa-tools"></i>
+                                            <span>card Map</span>
+                                        </Link>
+                                    </li>
                                     <li className="sidebar-dropdown">
                                         <Link className="dropdown-item" to="/categoriaslista/cervices">
                                             <i className="fas fa-plus-circle"></i>
@@ -478,7 +492,18 @@ const Home = () => {
                             <div className="sidebar-menu">
                                 <ul>
                                     
-
+                                <li className="sidebar-dropdown">
+                                        <Link className="dropdown-item" to="/mapp">
+                                            <i className="fas fa-tools"></i>
+                                            <span>Map</span>
+                                        </Link>
+                                    </li>
+                                    <li className="sidebar-dropdown">
+                                        <Link className="dropdown-item" to="/carddmap">
+                                            <i className="fas fa-tools"></i>
+                                            <span>card Map</span>
+                                        </Link>
+                                    </li>
                                     <li className="sidebar-dropdown">
                                         <Link className="dropdown-item" to="/categoriaslista/cervices">
                                             <i className="fas fa-plus-circle"></i>

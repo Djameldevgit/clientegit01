@@ -2,7 +2,7 @@ import { GLOBALTYPES } from './globalTypes';
 import { imageUpload } from '../../utils/imageUpload';
 import { getDataAPI, patchDataAPI, deleteDataAPI, putDataAPI } from '../../utils/fetchData';
 import { createNotify, removeNotify } from './notifyAction'
-
+ 
 export const SERVICIO_TYPES = {
     LOADING_SERVICIO: 'LOADING_SERVICIO',
     GET_SERVICIOS: 'GET_SERVICIOS',
@@ -30,34 +30,31 @@ export const getServicios = () => async (dispatch) => {
         });
     }
 };
-
-export const updateServicio = ({ servicioData, wilaya, commune, images, auth, statusservicio }) => async (dispatch) => {
-    let media = [];
-    const imgNewUrl = images.filter((img) => !img.url);
-    const imgOldUrl = images.filter((img) => img.url);
-
-    if (
-        statusservicio.servicioData === servicioData &&
  
-        imgNewUrl.length === 0 &&
-        imgOldUrl.length === statusservicio.images.length
-    ) {
-        return;
-    }
-
-    try {
-        dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
-        if (imgNewUrl.length > 0) media = await imageUpload(imgNewUrl);
-
-        const updatedData = {
-            contentservicio: servicioData.contentservicio,
-           
-            
-            direcion: servicioData.direcion,
+ 
+    export const updateServicio = ({ servicioData, wilaya, commune, images, auth, statusservicio }) => async (dispatch) => {
+        let media = [];
+        const imgNewUrl = images.filter((img) => !img.url);
+        const imgOldUrl = images.filter((img) => img.url);
+    
+        if (
+            statusservicio.servicioData === servicioData &&
+          
+            imgNewUrl.length === 0 &&
+            imgOldUrl.length === statusservicio.images.length
+        ) {
+            return;
+        }
+        try {
+            dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
+            if (imgNewUrl.length > 0) media = await imageUpload(imgNewUrl);
+    
+            const updatedData = {
+                contentservicio: servicioData.contentservicio,
+             direccion: servicioData.direccion,
             wilaya,
             commune,
-          
-            discripcion: servicioData.discripcion,
+           discripcion: servicioData.discripcion,
             priceservicio: servicioData.priceservicio,
             dinero: servicioData.dinero,
             negociable: servicioData.negociable,
@@ -66,22 +63,24 @@ export const updateServicio = ({ servicioData, wilaya, commune, images, auth, st
             email: servicioData.email,
             web: servicioData.web,
             informacion: servicioData.informacion,
-         
+            comentarios: servicioData.comentarios,
+            
             images: [...imgOldUrl, ...media]
-        };
-
-        const res = await patchDataAPI(`servicio/${statusservicio._id}`, updatedData, auth.token);
-
-        dispatch({ type: SERVICIO_TYPES.UPDATE_SERVICIO, payload: res.data.newServicio });
-
-        dispatch({ type: GLOBALTYPES.ALERT, payload: { success: res.data.msg } });
-    } catch (err) {
-        dispatch({
-            type: GLOBALTYPES.ALERT,
-            payload: { error: err.response.data.msg },
-        });
-    }
-};
+            };
+            
+            const res = await patchDataAPI(`servicio/${statusservicio._id}`, updatedData, auth.token);
+            dispatch({ type: SERVICIO_TYPES.UPDATE_SERVICIO, payload: res.data.newServicio });
+    
+    
+            dispatch({ type: GLOBALTYPES.ALERT, payload: { success: res.data.msg } });
+        } catch (err) {
+            dispatch({
+                type: GLOBALTYPES.ALERT,
+                payload: { error: err.response.data.msg }
+            });
+        }
+    };
+    
 
 export const likeServicio = ({ servicio, auth, socket }) => async (dispatch) => {
     const newServicio = { ...servicio, likes: [...servicio.likes, auth.user] };

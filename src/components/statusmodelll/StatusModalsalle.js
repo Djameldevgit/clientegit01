@@ -20,7 +20,7 @@ import { FormGroup } from '@material-ui/core';
  
 
 
-const StatusModalsalle = ({ closeModal }) => {
+const StatusModalsalle = () => {
 
     const { auth, theme, status, socket } = useSelector(state => state)
     const { user } = useSelector(state => state.auth);
@@ -29,7 +29,7 @@ const StatusModalsalle = ({ closeModal }) => {
     const dispatch = useDispatch()
     const initialState = {
 
-        content: '', direcion: '', wilaya: '', commune: '', specifications: [], discripcion: '', pricesala: '', dinero: '', negociable: '', nomprenom: '', telefono: '', email: '', web: '', informacion: false, comentarios: false
+        content: '', direccion: '', wilaya: '', commune: '', specifications: [], discripcion: '', pricesala: '', dinero: '', negociable: '', nomprenom: '', telefono: '', email: '', web: '', informacion: false, comentarios: false   
     }
 
     const [postData, setPostdata] = useState(initialState);
@@ -181,14 +181,15 @@ const StatusModalsalle = ({ closeModal }) => {
 
 
         if (status.onEdit) {
-            dispatch(updatePost({ postData, specifications, wilaya: selectedWilaya, commune: selectedCommune, images, auth, status }));
+            dispatch(updatePost({ postData, specifications, wilaya: selectedWilaya, commune: selectedCommune , images, auth, status }));
         } else {
-            dispatch(createPostpendiente({ postData, specifications, wilaya: selectedWilaya, commune: selectedCommune, images, auth, socket }));
+            dispatch(createPostpendiente({ postData, specifications, wilaya: selectedWilaya, commune: selectedCommune,
+                 images, auth, socket }));
         }
 
 
         setPostdata({
-            content: '', direcion: '', wilaya: '', commune: '', specifications: [], discripcion: '', pricesala: '', dinero: '', negociable: '', nomprenom: '', telefono: '', email: '', web: '', informacion: false, comentarios: false
+             content: '', direccion: '', wilaya: '', commune: '', specifications: [], discripcion: '', pricesala: '', dinero: '', negociable: '', nomprenom: '', telefono: '', email: '', web: '', informacion: false, comentarios: false
         });
         setImages([])
         if(tracks) tracks.stop()
@@ -268,7 +269,7 @@ const StatusModalsalle = ({ closeModal }) => {
 
                     <div className="form-group" >
                         <label className="text-danger">Adresse </label>
-                        <input onChange={(e) => handleChangeInput(e)} name="direcion" placeholder='Adresse' value={postData.direcion} className="form-control" disabled={bloquepost === 'bloque-post'} />
+                        <input onChange={(e) => handleChangeInput(e)} name="direccion" placeholder='Adresse' value={postData.direccion} className="form-control" disabled={bloquepost === 'bloque-post'} />
                     </div>
 
                     <br></br>

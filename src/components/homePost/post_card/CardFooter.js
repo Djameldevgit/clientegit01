@@ -62,7 +62,7 @@ const CardFooter = ({ post }) => {
     }
   }, [auth.user.saved, post._id])
 
-  const handleSavePost = async () => {
+  const handleSavePost= async () => {
     if (saveLoad) return;
 
     setSaveLoad(true)
@@ -70,7 +70,7 @@ const CardFooter = ({ post }) => {
     setSaveLoad(false)
   }
 
-  const handleUnSavePost = async () => {
+  const handleUnSavePost= async () => {
     if (saveLoad) return;
 
     setSaveLoad(true)
@@ -126,7 +126,7 @@ const CardFooter = ({ post }) => {
           </h6>
         </div>
 
-      
+        
       </div>
 
     </div>

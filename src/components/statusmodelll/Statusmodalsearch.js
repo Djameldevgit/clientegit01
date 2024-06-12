@@ -45,7 +45,7 @@ const Statusmodalsearch = ({ closeModal }) => {
     const [, setSearchResults] = useState([]);
     const [, setTotalResults] = useState(0);
 
-    const [optionservicio, setOptionservicio] = useState('');
+    const [contentservicio, setcontentservicio] = useState('');
     const [tipoTransaccion, setTipoTransaccion] = useState('');
     const [showSearchFields, setShowSearchFields] = useState(false);
     const [ventaValue, setVentalocation] = useState('');
@@ -75,7 +75,7 @@ const Statusmodalsearch = ({ closeModal }) => {
 
 
     const handleSelectChange = (value, e) => {
-        setOptionservicio(value);
+        setcontentservicio(value);
         setTipoTransaccion(e.target.value);
 
     };
@@ -91,7 +91,7 @@ const Statusmodalsearch = ({ closeModal }) => {
         setpricesala([5000, 2000000]);;
         setpriceservicio([500, 1000000]);;
 
-        setOptionservicio('')
+        setcontentservicio('')
         setcontent('')
 
 
@@ -162,8 +162,8 @@ const Statusmodalsearch = ({ closeModal }) => {
                 if (marcaValue) {
                     url += `&marca=${marcaValue}`;
                 }
-                if (optionservicio) {
-                    url += `&optionservicio=${optionservicio}`;
+                if (contentservicio) {
+                    url += `&contentservicio=${contentservicio}`;
                 }
 
             } else {
@@ -265,16 +265,14 @@ const Statusmodalsearch = ({ closeModal }) => {
 
                             {tipoTransaccion === 'sala' && (
 
-                                <div>
+                                <div className='mt-4'>
 
-                                    <input
-                                        type="text"
-                                        name='content'
-                                        value={content} // Usa searchTerm en lugar de content para mantenerlos sincronizados
-                                        onChange={handlechange}
-                                        placeholder="Buscar posts..."
-                                    />
 
+                                    <div className="form-group">
+
+                                        <input type="text" value={content} placeholder="Recherche salle..."
+                                            onChange={handlechange} className="form-control" />
+                                    </div>
 
 
                                     <div className="search-container   mb-2 mt-2">
@@ -321,7 +319,7 @@ const Statusmodalsearch = ({ closeModal }) => {
                                     <div>
 
                                         <Form.Select aria-label="Default select example" onChange={handleSelectChange}
-                                            value={optionservicio}>
+                                            value={contentservicio}>
                                             <option value="">Options service</option>
                                             <option value="Services de Planification des événements">Services de Planification de événements</option>
                                             <option value="Organisations de mariage">Organisations de mariage</option>

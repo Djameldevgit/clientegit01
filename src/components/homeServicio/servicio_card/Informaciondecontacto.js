@@ -81,7 +81,7 @@ const Informaciondecontacto = ({ servicio }) => {
           </div>
           <div className="contact-info">
             <p className="card-text mb-0" style={{ marginRight: '15px', ...getVisibilityStyle('showNormalLocation') }}>
-             {servicio.direcion}, {servicio.wilaya}, {servicio.commune}
+             {servicio.direccion}, {servicio.wilaya}, {servicio.commune}
             </p>
           </div>
           {canToggleLocation && (auth.user._id === servicio.user._id || auth.user.role === 'admin') && (

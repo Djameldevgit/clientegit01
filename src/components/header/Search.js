@@ -5,6 +5,7 @@ import { GLOBALTYPES } from '../../redux/actions/globalTypes';
 import PostCard from '../PostCard';
 import LoadIcon from '../../images/loading.gif';
 import { useSelector } from 'react-redux'
+
 const Search = () => {
     const {   auth  } = useSelector(state => state)
 
@@ -39,10 +40,13 @@ const Search = () => {
     return (
         <form className="search_form" onSubmit={handleSearch}>
             <input type="text" name="search" value={search} id="search" title="Recherche"
-                onChange={e => setSearch(e.target.value.toLowerCase())} />
+                 onClick={() => dispatch({ type: GLOBALTYPES.STATUSSEARCH, payload: true })}
+                  
+            
+            />
 
             <div className="search_icon" style={{ opacity: search ? 0 : 0.3 }}>
-                <span className="material-icons">search</span>
+           
                 <span>Recherche</span>
             </div>
 
