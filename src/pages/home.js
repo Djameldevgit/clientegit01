@@ -258,12 +258,7 @@ const Home = () => {
                                             <span>Map</span>
                                         </Link>
                                     </li>
-                                    <li className="sidebar-dropdown">
-                                        <Link className="dropdown-item" to="/carddmap">
-                                            <i className="fas fa-tools"></i>
-                                            <span>card Map</span>
-                                        </Link>
-                                    </li>
+                                    
                                     <li className="sidebar-dropdown">
                                         <Link className="dropdown-item" to="/categoriaslista/cervices">
                                             <i className="fas fa-plus-circle"></i>
@@ -498,12 +493,7 @@ const Home = () => {
                                             <span>Map</span>
                                         </Link>
                                     </li>
-                                    <li className="sidebar-dropdown">
-                                        <Link className="dropdown-item" to="/carddmap">
-                                            <i className="fas fa-tools"></i>
-                                            <span>card Map</span>
-                                        </Link>
-                                    </li>
+                                  
                                     <li className="sidebar-dropdown">
                                         <Link className="dropdown-item" to="/categoriaslista/cervices">
                                             <i className="fas fa-plus-circle"></i>

@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { likePost, unLikePost } from '../../../redux/actions/postAction'
 
 const CardBody = ({ post }) => {
-  const { auth,theme, socket ,languagee } = useSelector(state => state)
+  const { auth,  socket ,languagee } = useSelector(state => state)
   const dispatch = useDispatch()
   const { t } = useTranslation();
   const [isLike, setIsLike] = useState(false)

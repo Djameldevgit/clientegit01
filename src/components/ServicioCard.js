@@ -9,9 +9,10 @@ import Cardtitleservicio from './homeServicio/servicio_card/Cardtitleservicio';
 import Informaciondecontacto from "./homeServicio/servicio_card/Informaciondecontacto";
  
 import CardHeaderr from "./homeServicio/servicio_card/CardHeaderr";
+import Map from "./homeServicio/Map";
  
 
-const ServicioCard = ({ servicio, theme }) => {
+const ServicioCard = ({ servicio  }) => {
   const location = useLocation();
   const isServicioDetailPage = location.pathname.startsWith(`/servicio/${servicio._id}`);
 
@@ -34,8 +35,9 @@ const ServicioCard = ({ servicio, theme }) => {
     <div className="card">
       {<CardHeaderr servicio={servicio}/>}
       <Cardtitleservicio servicio={servicio} />
-      <CardBody servicio={servicio} theme={theme} />
+      <CardBody servicio={servicio}   />
       {isServicioDetailPage && <CardInfoservicio servicio={servicio} />}
+      {isServicioDetailPage && <Map servicio={servicio} />}
       {isServicioDetailPage && <Cardserviciosdeservicio servicio={servicio} />}
       {showInfo && renderInformacionContacto()}
       {showComments && <CardFooter servicio={servicio} />}

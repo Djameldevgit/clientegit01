@@ -58,9 +58,7 @@ import Statusmodalsearch from './components/statusmodelll/Statusmodalsearch'
 import StatusModalsalle from './components/statusmodelll/StatusModalsalle'
 import StatusadminModal from './components/statusmodelll/StatusadminModal'
 import Dashboard from './pages/user/dashboard'
-import Mapp from './pages/mapp';
-import Carddmap from './pages/carddmap';
-
+ 
  
  
 
@@ -165,8 +163,7 @@ function App() {
 
           <Route exact path="/administracion/postspendientes" component={Postspendientes} />
 
-          <Route exact path="/mapp" component={Mapp} />
-          <Route exact path="/carddmap" component={Carddmap} />
+         
 
           <Route exact path="/administracion/serviciospendientes" component={Serviciospendientes} />
           <Route exact path="/categoriaslista/cervices" component={Cervices} />
@@ -188,7 +185,7 @@ function App() {
 
           <Route exact path="/users/usersposts" component={Usersposts} />
           <Route exact path="/infoclient" component={Infoclient} />
-
+          
           <Route
             path="/bloqueos"
             render={() => (userBlocked ? <Bloqueos /> : <Redirect to="/" />)}
