@@ -49,28 +49,26 @@ function App() {
   const userBlocked = user && user.bloquepost === 'bloque-user';
 
   useEffect(() => {
-    const firstLogin = localStorage.getItem('firstLogin');
-    if (firstLogin) {
+    const firstLogin = localStorage.getItem('firstLogin')
+    if(firstLogin){
       const getToken = async () => {
-        try {
-          const res = await axios.post('/api/refresh_token', null, {
-            baseURL: process.env.REACT_APP_API_URL // Utiliza la URL de la API desde la variable de entorno
-          });
-          dispatch({ 
-            type: GLOBALTYPES.AUTH, 
-            payload: {
-              token: res.data.access_token,
-              user: res.data.user
-            } 
-          });
-        } catch (err) {
-          console.error('Error al obtener el token de actualización:', err);
-        }
-      };
-      getToken();
+        const res = await axios.post('/user/refresh_token', null)
+        dispatch({type: 'GET_TOKEN', payload: res.data.access_token})
+      }
+      getToken()
     }
-  }, [auth.isLogged, dispatch]);
+  },[auth.isLogged, dispatch])
 
+
+  useEffect(() => {
+    dispatch(refreshToken())
+
+    const socket = io()
+    dispatch({ type: GLOBALTYPES.SOCKET, payload: socket })
+    return () => socket.close()
+  }, [dispatch])
+
+/*
   useEffect(() => {
     dispatch(refreshToken());
 
@@ -78,7 +76,7 @@ function App() {
     dispatch({ type: GLOBALTYPES.SOCKET, payload: socket });
     return () => socket.close();
   }, [dispatch]);
- 
+ */
   useEffect(() => {
     dispatch(getPosts());
     dispatch(getServicios());
