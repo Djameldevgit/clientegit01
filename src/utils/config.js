@@ -1,2 +1,2 @@
-export const API_URL = "https://servidorrender.onrender.com"
+export const REACT_APP_API_URL = "https://servidorrender.onrender.com"
  
