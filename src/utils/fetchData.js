@@ -1,12 +1,15 @@
 import axios from 'axios';
 
-axios.defaults.baseURL = process.env.REACT_APP_API_URL;
-axios.defaults.withCredentials = true; // Asegura que las cookies se envíen en las solicitudes CORS
+// Configuración de axios
+const axiosInstance = axios.create({
+    baseURL: process.env.REACT_APP_API_URL,
+    withCredentials: true, // Asegura que las cookies se envíen en las solicitudes CORS
+});
 
 // Funciones de API
 export const getDataAPI = async (url, token) => {
     try {
-        const res = await axios.get(`/api/${url}`, {
+        const res = await axiosInstance.get(`/api/${url}`, {
             headers: { Authorization: token }
         });
         return res.data; // Devuelve solo los datos de la respuesta
@@ -17,7 +20,7 @@ export const getDataAPI = async (url, token) => {
 
 export const postDataAPI = async (url, post, token) => {
     try {
-        const res = await axios.post(`/api/${url}`, post, {
+        const res = await axiosInstance.post(`/api/${url}`, post, {
             headers: { Authorization: token }
         });
         return res.data;
@@ -28,7 +31,7 @@ export const postDataAPI = async (url, post, token) => {
 
 export const putDataAPI = async (url, post, token) => {
     try {
-        const res = await axios.put(`/api/${url}`, post, {
+        const res = await axiosInstance.put(`/api/${url}`, post, {
             headers: { Authorization: token }
         });
         return res.data;
@@ -39,7 +42,7 @@ export const putDataAPI = async (url, post, token) => {
 
 export const patchDataAPI = async (url, post, token) => {
     try {
-        const res = await axios.patch(`/api/${url}`, post, {
+        const res = await axiosInstance.patch(`/api/${url}`, post, {
             headers: { Authorization: token }
         });
         return res.data;
@@ -50,7 +53,7 @@ export const patchDataAPI = async (url, post, token) => {
 
 export const deleteDataAPI = async (url, token) => {
     try {
-        const res = await axios.delete(`/api/${url}`, {
+        const res = await axiosInstance.delete(`/api/${url}`, {
             headers: { Authorization: token }
         });
         return res.data;
@@ -58,3 +61,4 @@ export const deleteDataAPI = async (url, token) => {
         throw error;
     }
 };
+
