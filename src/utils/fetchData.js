@@ -1,12 +1,13 @@
 import axios from 'axios';
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
-axios.defaults.withCredentials = true;
+axios.defaults.withCredentials = true; // Asegura que las cookies se envíen en las solicitudes CORS
 
+// Funciones de API
 export const getDataAPI = async (url, token) => {
     try {
         const res = await axios.get(`/api/${url}`, {
-            headers: { Authorization: token },
+            headers: { Authorization: token }
         });
         return res.data; // Devuelve solo los datos de la respuesta
     } catch (error) {
