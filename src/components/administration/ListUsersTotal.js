@@ -5,8 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
  
 import { getDataAPI } from '../../utils/fetchData';
 import { fetchTotalUsersCount,   USER_TYPES } from '../../redux/actions/userAction';
-import 'bootstrap/dist/css/bootstrap.min.css';
-
+ 
 const ListUsersTotal = () => {
   const { homeUsers, auth } = useSelector(state => state);
   const { totalUsersCount } = useSelector(state => state.homeUsers);

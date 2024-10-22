@@ -6,8 +6,7 @@ import LoadIcon from '../../images/loading.gif';
 import LoadMoreBtn from '../LoadMoreBtn';
 import { getDataAPI } from '../../utils/fetchData';
 import {  USER_TYPES } from '../../redux/actions/userAction';
-import 'bootstrap/dist/css/bootstrap.min.css';
-
+ 
 const SearchUsers = () => {
   const { homeUsers, auth } = useSelector(state => state);
  
