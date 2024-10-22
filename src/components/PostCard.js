@@ -1,54 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React from 'react'
+import CardHeader from './home/post_card/CardHeader'
+import CardBody from './home/post_card/CardBody'
+import CardFooter from './home/post_card/CardFooter'
 import { useLocation } from "react-router-dom";
-import CardBody from "./homePost/post_card/CardBody";
-import CardFooter from "./homePost/post_card/CardFooter";
-import CardInfopost from './homePost/post_card/CardInfopost';
- 
-import Cardtitlepost from './homePost/post_card/Cardtitlepost';
-import Informaciondecontacto from "./homePost/post_card/Informaciondecontacto";
- 
-import CardHeaderr from "./homePost/post_card/CardHeaderr";
-import Descripcion from "./homePost/post_card/Descripcion";
-import Map from "./homePost/post_card/Map";
- 
+import Comments from './home/Comments'
+import InputComment from './home/InputComment'
+import Description from './home/post_card/Description';
 
-const PostCard = ({ post, theme }) => {
-  const location = useLocation();
-  const isPostDetailPage = location.pathname.startsWith(`/post/${post._id}`);
+const PostCard = ({post, theme}) => {
+    const location = useLocation();
+    const isPostDetailPage = location.pathname.startsWith(`/post/${post._id}`);
 
-  const [showComments, setShowComments] = useState(false);
-  const [showInfo, setShowInfo] = useState(false);
+    return (
+        <div className={`card my-3 ${isPostDetailPage ? 'card-detail' : 'card-home'}`}>
+            <CardHeader post={post} />
+            <CardBody post={post} theme={theme} />
+            <CardFooter post={post} isPostDetailPage={isPostDetailPage} />  
+           {isPostDetailPage &&  <Description post={post}/>}
+            {isPostDetailPage && <Comments post={post} />}
+            {isPostDetailPage && <InputComment post={post} />}
+        </div>
+    )
+}
 
-  useEffect(() => {
-    if (isPostDetailPage) {
-      setShowComments(post.comentarios === true);
-      setShowInfo(post.informacion === true);
-    }
-  }, [isPostDetailPage, post.comentarios, post.informacion]);
-
-  const renderInformacionContacto = () => {
-    if (!showInfo) return null;
-    return <Informaciondecontacto post={post} />;
-  };
-
-  return (
-    <div className="card">
-      {<CardHeaderr post={post}/>}
-      <Cardtitlepost post={post} />
-      <CardBody post={post} theme={theme} />
-      <Descripcion post={post} theme={theme} />
-      <Map post={post} theme={theme} />
-      {isPostDetailPage && <CardInfopost post={post} />}
-    
-      {showInfo && renderInformacionContacto()}
-      {showComments && <CardFooter post={post} />}
- 
-    </div>
-  );
-};
-
-export default PostCard;
-
-
-       
-   
+export default PostCard

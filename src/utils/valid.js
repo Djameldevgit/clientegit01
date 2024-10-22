@@ -1,7 +1,7 @@
 const valid = ({  username, email, password, cf_password}) => {
     const err = {}
 
- 
+    
 
     if(!username) {
         err.username = "Please add your user name."

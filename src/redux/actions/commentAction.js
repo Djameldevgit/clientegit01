@@ -23,7 +23,7 @@ export const createComment = ({post, newComment, auth, socket}) => async (dispat
         // Notify
         const msg = {
             id: res.data.newComment._id,
-            text: newComment.reply ? 'il ta mentionné dans un commentaire.' : 'a commenté votre post.',
+            text: newComment.reply ? 'mentioned you in a comment.' : 'has commented on your post.',
             recipients: newComment.reply ? [newComment.tag._id] : [post.user._id],
             url: `/post/${post._id}`,
             content: post.content, 

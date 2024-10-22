@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Avatar from '../Avatar'
 import EditProfile from './EditProfile'
- 
+import FollowBtn from '../FollowBtn'
 import Followers from './Followers'
 import Following from './Following'
 import { GLOBALTYPES } from '../../redux/actions/globalTypes'
@@ -46,10 +46,10 @@ const Info = ({id, auth, profile, dispatch}) => {
                                     user._id === auth.user._id
                                     ?  <button className="btn btn-outline-info"
                                     onClick={() => setOnEdit(true)}>
-                                        Edition Profil
+                                        Edit Profile
                                     </button>
                                     
-                                    : null
+                                    : <FollowBtn user={user} />
                                 }
                                
                                 
@@ -57,14 +57,14 @@ const Info = ({id, auth, profile, dispatch}) => {
 
                             <div className="follow_btn">
                                 <span className="mr-4" onClick={() => setShowFollowers(true)}>
-                                    {user.followers.length}Suiveurs
+                                    {user.followers.length} Followers
                                 </span>
                                 <span className="ml-4" onClick={() => setShowFollowing(true)}>
-                                    {user.following.length} Suivant
+                                    {user.following.length} Following
                                 </span>
                             </div>
 
-                               <p className="m-0">{user.address}</p>
+                              <p className="m-0">{user.address}</p>
                             <h6 className="m-0">{user.email}</h6>
                             <a href={user.website} target="_blank" rel="noreferrer">
                                 {user.website}

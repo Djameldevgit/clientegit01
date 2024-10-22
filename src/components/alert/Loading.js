@@ -1,68 +1,18 @@
-import React from 'react';
-import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import CircularProgress, {
-  CircularProgressProps,
-  circularProgressClasses,
-} from '@mui/material/CircularProgress';
-import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
+import React from 'react'
 
-const Container = styled(Box)({
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  height: '100vh',
-});
+const Loading = () => {
+    return (
+        <div className="position-fixed w-100 h-100 text-center loading"
+        style={{background: "#0008", color: "white", top: 0, left: 0, zIndex: 50}}>
 
-const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
-  height: 10,
-  borderRadius: 5,
-  [`&.${linearProgressClasses.colorPrimary}`]: {
-    backgroundColor: theme.palette.grey[theme.palette.mode === 'light' ? 200 : 800],
-  },
-  [`& .${linearProgressClasses.bar}`]: {
-    borderRadius: 5,
-    backgroundColor: theme.palette.mode === 'light' ? '#1a90ff' : '#308fe8',
-  },
-}));
-
-function Loading() {
-  return (
-    <Container>
-      <Box sx={{ position: 'relative' }}>
-        <CircularProgress
-          variant="determinate"
-          sx={{
-            color: (theme) =>
-              theme.palette.grey[theme.palette.mode === 'light' ? 200 : 800],
-          }}
-          size={40}
-          thickness={4}
-          value={100}
-        />
-        <CircularProgress
-          variant="indeterminate"
-          disableShrink
-          sx={{
-            color: (theme) => (theme.palette.mode === 'light' ? '#1a90ff' : '#308fe8'),
-            animationDuration: '550ms',
-            position: 'absolute',
-            left: 0,
-            [`& .${circularProgressClasses.circle}`]: {
-              strokeLinecap: 'round',
-            },
-          }}
-          size={40}
-          thickness={4}
-        />
-      </Box>
-      <br />
-      <BorderLinearProgress variant="determinate" value={50} />
-    </Container>
-  );
+            <svg width="205" height="250" viewBox="0 0 40 50">
+                <polygon stroke="#fff" strokeWidth="1" fill="none"
+                points="20,1 40,40 1,40" />
+                <text fill="#fff" x="5" y="47">Loading</text>
+            </svg>
+            
+        </div>
+    )
 }
 
-export default Loading;
-
-
- 
+export default Loading

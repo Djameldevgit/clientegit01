@@ -1,200 +1,117 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-//import axios from 'axios';
-import { postDataAPI } from '../utils/fetchData';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import Paper from '@mui/material/Paper';
+import React, { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { useHistory, Link } from 'react-router-dom'
+import { register } from '../redux/actions/authAction'
 
-//import { TextField, Button, Typography, Box, Grid, Paper, Avatar, createTheme, ThemeProvider } from '@mui/material';
-import { Avatar, Button,   TextField, Grid, Box, Typography,   IconButton, InputAdornment, FormControl, InputLabel, OutlinedInput, Link as MuiLink } from '@mui/material';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
- 
+const Register = () => {
+    const { auth, alert } = useSelector(state => state)
+    const dispatch = useDispatch()
+    const history = useHistory()
 
-import CssBaseline from '@mui/material/CssBaseline';
-//import { LockOutlined as LockOutlinedIcon } from '@mui/icons-material';
-import { showErrMsg, showSuccessMsg } from '../utils/notification/Notification';
-import { isEmpty, isEmail, isLength, isMatch } from '../utils/validation/Validation';
- 
- 
-const initialState = {
-    username: '',
-    email: '',
-    password: '',
-    cf_password: '',
-    err: '',
-    success: ''
-};
+    const initialState = { 
+          username: '', email: '', password: '', cf_password: '' 
+    }
+    const [userData, setUserData] = useState(initialState)
+    const {   username, email, password, cf_password } = userData
 
-function Register() {
-    const [user, setUser] = useState(initialState)
-    const [showPassword, setShowPassword] = useState(false);
-    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-    const {username, email, password,cf_password, err, success} = user
+    const [typePass, setTypePass] = useState(false)
+    const [typeCfPass, setTypeCfPass] = useState(false)
 
+    useEffect(() => {
+        if(auth.token) history.push("/")
+    }, [auth.token, history])
+
+    
     const handleChangeInput = e => {
-        const {name, value} = e.target
-        setUser({...user, [name]:value, err: '', success: ''})
-    }
-    const toggleShowPassword = () => {
-        setShowPassword(!showPassword);
-    };
-
-    const toggleShowConfirmPassword = () => {
-        setShowConfirmPassword(!showConfirmPassword);
-    };
-
-    const handleSubmit = async e => {
-        e.preventDefault();
-        if (isEmpty(username) || isEmpty(password))
-            return setUser({...user, err: "Veuillez remplir tous les champs.", success: ''});
-    
-        if (!isEmail(email))
-            return setUser({...user, err: "E-mails invalides.", success: ''});
-    
-        if (isLength(password))
-            return setUser({...user, err: "Le mot de passe doit contenir au moins 6 caractères.", success: ''});
-        
-        if (!isMatch(password, cf_password))
-            return setUser({...user, err: "Les mots de passe ne correspondent pas.", success: ''});
-    
-        try {
-            const res = await postDataAPI('/register', {
-                username, email, password
-            });
-            
-    
-
-            setUser({...user, err: '', success: res.data.msg})
-        } catch (err) {
-            err.response.data.msg && 
-            setUser({...user, err: err.response.data.msg, success: ''})
-        }
+        const { name, value } = e.target
+        setUserData({...userData, [name]:value})
     }
 
+    const handleSubmit = e => {
+        e.preventDefault()
+        dispatch(register(userData))
+    }
 
     return (
+        <div className="auth_page">
+            <form onSubmit={handleSubmit}>
+                <h3 className="text-uppercase text-center mb-4">V-Network</h3>
 
-
-        <ThemeProvider theme={createTheme()}>
-            <div>
-            {err && showErrMsg(err)}
-                        {success && showSuccessMsg(success)}
-            </div>
-            <Grid container component="main" sx={{ height: '100vh' }}>
-                <CssBaseline />
                
+                <div className="form-group">
+                    <label htmlFor="username">User Name</label>
+                    <input type="text" className="form-control" id="username" name="username"
+                    onChange={handleChangeInput} value={username.toLowerCase().replace(/ /g, '')}
+                    style={{background: `${alert.username ? '#fd2d6a14' : ''}`}} />
+                    
+                    <small className="form-text text-danger">
+                        {alert.username ? alert.username : ''}
+                    </small>
+                </div>
 
+                <div className="form-group">
+                    <label htmlFor="exampleInputEmail1">Email address</label>
+                    <input type="email" className="form-control" id="exampleInputEmail1" name="email"
+                    onChange={handleChangeInput} value={email}
+                    style={{background: `${alert.email ? '#fd2d6a14' : ''}`}} />
+                    
+                    <small className="form-text text-danger">
+                        {alert.email ? alert.email : ''}
+                    </small>
+                </div>
 
-                <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-                    <Box
-                        sx={{
-                            my: 8,
-                            mx: 4,
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                        }}
-                    >
-                        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                            <LockOutlinedIcon />
-                        </Avatar>
+                <div className="form-group">
+                    <label htmlFor="exampleInputPassword1">Password</label>
 
-
-
-                        <Typography component="h1" variant="h5">
-                            S'inscrire
-                        </Typography>
+                    <div className="pass">
                         
-                        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 3 }}>
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="username"
-                            label="Nom"
-                            name="username"
-                            autoComplete="username"
-                            autoFocus
-                            value={username}
-                            onChange={handleChangeInput}
-                        />
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="email"
-                            label="Adresse e-mail"
-                            name="email"
-                            autoComplete="email"
-                            value={email}
-                            onChange={handleChangeInput}
-                        />
-                        <FormControl fullWidth sx={{ mt: 1 }}>
-                            <InputLabel htmlFor="password">Mot de passe</InputLabel>
-                            <OutlinedInput
-                                id="password"
-                                type={showPassword ? 'text' : 'password'}
-                                value={password}
-                                onChange={handleChangeInput}
-                                name="password"
-                                endAdornment={
-                                    <InputAdornment position="end">
-                                        <IconButton
-                                            aria-label="toggle password visibility"
-                                            onClick={toggleShowPassword}
-                                            edge="end"
-                                        >
-                                            {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
-                                        </IconButton>
-                                    </InputAdornment>
-                                }
-                            />
-                        </FormControl>
-                        <FormControl fullWidth sx={{ mt: 1 }}>
-                            <InputLabel htmlFor="cf_password">Confirmer le mot de passe</InputLabel>
-                            <OutlinedInput
-                                id="cf_password"
-                                type={showConfirmPassword ? 'text' : 'password'}
-                                value={cf_password}
-                                onChange={handleChangeInput}
-                                name="cf_password"
-                                endAdornment={
-                                    <InputAdornment position="end">
-                                        <IconButton
-                                            aria-label="toggle password visibility"
-                                            onClick={toggleShowConfirmPassword}
-                                            edge="end"
-                                        >
-                                            {showConfirmPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
-                                        </IconButton>
-                                    </InputAdornment>
-                                }
-                            />
-                        </FormControl>
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
-                        >
-                            S'inscrire
-                        </Button>
-                        <Grid container justifyContent="flex-end">
-                            <Grid item>
-                                Vous avez déjà un compte?{' '}
-                                <MuiLink component={Link} to="/login" variant="body2">
-                                    Se connecter
-                                </MuiLink>
-                            </Grid>
-                        </Grid>
-                        </Box>
-                    </Box>
-                </Grid>
-            </Grid>
-        </ThemeProvider>
-    );
-};
+                        <input type={ typePass ? "text" : "password" } 
+                        className="form-control" id="exampleInputPassword1"
+                        onChange={handleChangeInput} value={password} name="password"
+                        style={{background: `${alert.password ? '#fd2d6a14' : ''}`}} />
 
-export default Register;
+                        <small onClick={() => setTypePass(!typePass)}>
+                            {typePass ? 'Hide' : 'Show'}
+                        </small>
+                    </div>
+
+                    <small className="form-text text-danger">
+                        {alert.password ? alert.password : ''}
+                    </small>
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor="cf_password">Confirm Password</label>
+
+                    <div className="pass">
+                        
+                        <input type={ typeCfPass ? "text" : "password" } 
+                        className="form-control" id="cf_password"
+                        onChange={handleChangeInput} value={cf_password} name="cf_password"
+                        style={{background: `${alert.cf_password ? '#fd2d6a14' : ''}`}} />
+
+                        <small onClick={() => setTypeCfPass(!typeCfPass)}>
+                            {typeCfPass ? 'Hide' : 'Show'}
+                        </small>
+                    </div>
+
+                    <small className="form-text text-danger">
+                        {alert.cf_password ? alert.cf_password : ''}
+                    </small>
+                </div>
+
+                 
+                
+                <button type="submit" className="btn btn-dark w-100">
+                    Register
+                </button>
+
+                <p className="my-2">
+                    Already have an account? <Link to="/" style={{color: "crimson"}}>Login Now</Link>
+                </p>
+            </form>
+        </div>
+    )
+}
+
+export default Register

@@ -1,6 +1,6 @@
 import { PROFILE_TYPES } from '../actions/profileAction'
 import { EditData } from '../actions/globalTypes'
- 
+
 const initialState = {
     loading: false,
     ids: [],
@@ -9,7 +9,7 @@ const initialState = {
 }
 
 const profileReducer = (state = initialState, action) => {
-    switch (action.type) {
+    switch (action.type){
         case PROFILE_TYPES.LOADING:
             return {
                 ...state,
@@ -45,20 +45,6 @@ const profileReducer = (state = initialState, action) => {
                 ...state,
                 posts: EditData(state.posts, action.payload._id, action.payload)
             };
-
-        case   PROFILE_TYPES.SAVE_COUNTER_SUCCESS:
-            return {
-                ...state,
-               
-                error: null,
-            };
-        case PROFILE_TYPES.SAVE_COUNTER_ERROR:
-            return {
-                ...state,
-              
-                error: action.payload,
-            };
-
         default:
             return state;
     }

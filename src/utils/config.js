@@ -1,2 +1,1 @@
-export const REACT_APP_API_URL = "https://servidorrender.onrender.com"
- 
+export const BASE_URL = 'https://v-network-devat.herokuapp.com'

@@ -41,11 +41,11 @@ const FollowBtn = ({user}) => {
             followed
             ? <button className="btn btn-outline-danger"
             onClick={handleUnFollow}>
-              Pas recevoir des notifications
+                UnFollow
             </button>
             : <button className="btn btn-outline-info"
             onClick={handleFollow}>
-             Recevoir des notifications
+                Follow
             </button>
         }
         </>

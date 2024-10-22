@@ -9,25 +9,7 @@ import { imageShow, videoShow } from '../../utils/mediaShow'
 import { imageUpload } from '../../utils/imageUpload'
 import { addMessage, getMessages, loadMoreMessages, deleteConversation } from '../../redux/actions/messageAction'
 import LoadIcon from '../../images/loading.gif'
-/*user: Almacena la información del usuario con el que se está chateando actualmente.
-text: Almacena el texto del mensaje que el usuario está escribiendo.
-media: Almacena los archivos multimedia (imágenes o videos) adjuntos al mensaje.
-loadMedia: Indica si se están cargando archivos multimedia.
-data: Almacena los mensajes de la conversación actual.
-result: Número total de mensajes en la conversación actual.
-page: Página actual de mensajes cargados.
-isLoadMore: Indica si se están cargando más mensajes al hacer scroll.
 
-handleChangeMedia: Maneja el cambio en los archivos multimedia seleccionados por el usuario.
-handleDeleteMedia: Maneja la eliminación de un archivo multimedia de la lista.
-handleSubmit: Maneja el envío del mensaje.
-handleDeleteConversation: Maneja la eliminación de la conversación actual.
-caller: Inicia una llamada de audio o video.
-callUser: Llama al usuario actual.
-useEffect: Obtiene los mensajes de la conversación actual al cargar el componente.
-useEffect (Load More): Detecta cuando el usuario llega al final de la página y carga más mensajes.
-useEffect: Controla la eliminación de la conversación al cargar el componente.
-*/
 const RightSide = () => {
     const { auth, message, theme, socket, peer } = useSelector(state => state)
     const dispatch = useDispatch()
@@ -113,7 +95,7 @@ const RightSide = () => {
 
         setLoadMedia(false)
         await dispatch(addMessage({msg, auth, socket}))
-        if(refDisplay.current){//esta parte del código garantiza que la ventana de visualización se desplace automáticamente hacia abajo para mostrar los nuevos mensajes cuando se agregan a la conversación. Esto mejora la experiencia del usuario al mantenerlos actualizados con los últimos mensajes sin que tengan que desplazarse manualmente.
+        if(refDisplay.current){
             refDisplay.current.scrollIntoView({behavior: 'smooth', block: 'end'})
         }
     }
@@ -122,12 +104,7 @@ const RightSide = () => {
         const getMessagesData = async () => {
             if(message.data.every(item => item._id !== id)){
                 await dispatch(getMessages({auth, id}))
-                setTimeout(() => {/* El setTimeout se utiliza para asegurar que el desplazamiento hacia abajo ocurra después de que los nuevos mensajes se hayan agregado al DOM y se hayan renderizado correctamente. Aquí está cómo funciona:
-
-                    Después de que se agregan nuevos mensajes y se actualiza el estado que contiene los mensajes (data), se llama al setTimeout.
-                    Dentro del setTimeout, refDisplay.current.scrollIntoView({behavior: 'smooth', block: 'end'}) se ejecuta después de un breve período de tiempo, en este caso, 50 milisegundos (50).
-                    El propósito de este setTimeout es permitir que el navegador tenga tiempo suficiente para actualizar la interfaz de usuario con los nuevos mensajes antes de desplazar la vista hacia abajo. Esto asegura una transición suave y evita que el desplazamiento hacia abajo ocurra antes de que los nuevos mensajes se hayan renderizado completamente.*/
-                  
+                setTimeout(() => {
                     refDisplay.current.scrollIntoView({behavior: 'smooth', block: 'end'})
                 },50)
             }
@@ -136,19 +113,8 @@ const RightSide = () => {
     },[id, dispatch, auth, message.data])
 
 
-
-
-
     // Load More
-/*Esta función utiliza el IntersectionObserver para detectar cuándo el botón "Load more" (pageEnd) está casi visible en la ventana gráfica del navegador. Aquí está cómo funciona:
-Se crea una instancia de IntersectionObserver que observa el elemento pageEnd.current, que es una referencia al botón "Load more".
-Se configura el threshold en 0.1, lo que significa que la función de devolución de llamada se ejecutará cuando al menos el 10% del elemento observado esté visible en la ventana gráfica del navegador.
-Cuando el elemento observado (en este caso, el botón "Load more") está a punto de ser visible (cuando entries[0].isIntersecting es true), la función de devolución de llamada incrementa el estado isLoadMore en 1.
-Esto indica que el usuario ha llegado al final de la página y desea cargar más mensajes.
-Entonces, básicamente, esta función permite cargar más mensajes cuando el usuario se acerca al final de la página, proporcionando una experiencia de desplazamiento infinito para los mensajes en el chat.
-
-*/
- useEffect(() => {
+    useEffect(() => {
         const observer = new IntersectionObserver(entries => {
             if(entries[0].isIntersecting){
                 setIsLoadMore(p => p + 1)
@@ -159,31 +125,6 @@ Entonces, básicamente, esta función permite cargar más mensajes cuando el usu
 
         observer.observe(pageEnd.current)
     },[setIsLoadMore])
-
-
-
-
-
-/*
-Esta función useEffect se encarga de cargar más mensajes cuando se detecta que el usuario ha llegado al final de la lista de mensajes y hay más mensajes disponibles para cargar. Aquí hay un desglose detallado de cómo funciona:
-
-Dependencia de isLoadMore: La función useEffect se ejecuta cada vez que el estado isLoadMore cambia.
-
-Verificación de isLoadMore > 1: La función se activa solo si isLoadMore es mayor que 1. Esto es para asegurarse de que no se ejecuta en la primera carga de la página.
-
-Verificación de result y page: La condición if(result >= page * 9) comprueba si hay más mensajes para cargar. Aquí:
-
-result es el número total de mensajes que ya se han cargado.
-page es el número de páginas que se han cargado.
-La condición result >= page * 9 se asegura de que hay suficientes mensajes en la base de datos para justificar una nueva carga de página (asumiendo que cada página carga 9 mensajes).
-Carga de más mensajes: Si la condición es verdadera, se despacha la acción loadMoreMessages con los parámetros auth, id, y page + 1:
-
-auth: Los datos de autenticación del usuario actual.
-id: El ID de la conversación actual.
-page: page + 1: Incrementa el número de página para cargar la siguiente página de mensajes.
-Reinicialización de isLoadMore: Después de despachar la acción para cargar más mensajes, isLoadMore se reinicia a 1 para evitar cargas innecesarias adicionales hasta que el usuario vuelva a desplazarse al final de la lista de mensajes.
-
-En resumen, esta función se asegura de que los mensajes adicionales se carguen automáticamente cuando el usuario se desplaza al final de la lista, proporcionando una experiencia de desplazamiento infinito.*/
 
     useEffect(() => {
         if(isLoadMore > 1){
@@ -204,23 +145,23 @@ En resumen, esta función se asegura de que los mensajes adicionales se carguen 
 
     // Call
     const caller = ({video}) => {
-        const { _id, avatar, username, fullname } = user
+        const { _id, avatar, username  } = user
 
         const msg = {
             sender: auth.user._id,
             recipient: _id, 
-            avatar, username, fullname, video
+            avatar, username,   video
         }
         dispatch({ type: GLOBALTYPES.CALL, payload: msg })
     }
 
     const callUser = ({video}) => {
-        const { _id, avatar, username, fullname } = auth.user
+        const { _id, avatar, username } = auth.user
 
         const msg = {
             sender: _id,
             recipient: user._id, 
-            avatar, username, fullname, video
+            avatar, username,   video
         }
 
         if(peer.open) msg.peerId = peer._id

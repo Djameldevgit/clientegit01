@@ -1,64 +1,46 @@
-import axios from 'axios';
+import axios from 'axios'
 
-// Configuración de axios
-const axiosInstance = axios.create({
-    baseURL: process.env.REACT_APP_API_URL,
-    withCredentials: true, // Asegura que las cookies se envíen en las solicitudes CORS
-});
+// Establecer la URL base dependiendo del entorno (producción o desarrollo)
+const baseURL = process.env.NODE_ENV === 'production'
+  ? 'https://tu-api.com' // URL de tu servidor en producción
+  : 'http://localhost:5000'; // URL de tu servidor en desarrollo
 
-// Funciones de API
+// Función para GET request
 export const getDataAPI = async (url, token) => {
-    try {
-        const res = await axiosInstance.get(`/api/${url}`, {
-            headers: { Authorization: token }
-        });
-        return res.data; // Devuelve solo los datos de la respuesta
-    } catch (error) {
-        throw error; // Lanza el error para manejarlo en el componente que llama a esta función
-    }
-};
+    const res = await axios.get(`${baseURL}/api/${url}`, {
+        headers: { Authorization: token }
+    })
+    return res;
+}
 
+// Función para POST request
 export const postDataAPI = async (url, post, token) => {
-    try {
-        const res = await axiosInstance.post(`/api/${url}`, post, {
-            headers: { Authorization: token }
-        });
-        return res.data;
-    } catch (error) {
-        throw error;
-    }
-};
+    const res = await axios.post(`${baseURL}/api/${url}`, post, {
+        headers: { Authorization: token }
+    })
+    return res;
+}
 
+// Función para PUT request
 export const putDataAPI = async (url, post, token) => {
-    try {
-        const res = await axiosInstance.put(`/api/${url}`, post, {
-            headers: { Authorization: token }
-        });
-        return res.data;
-    } catch (error) {
-        throw error;
-    }
-};
+    const res = await axios.put(`${baseURL}/api/${url}`, post, {
+        headers: { Authorization: token }
+    })
+    return res;
+}
 
+// Función para PATCH request
 export const patchDataAPI = async (url, post, token) => {
-    try {
-        const res = await axiosInstance.patch(`/api/${url}`, post, {
-            headers: { Authorization: token }
-        });
-        return res.data;
-    } catch (error) {
-        throw error;
-    }
-};
+    const res = await axios.patch(`${baseURL}/api/${url}`, post, {
+        headers: { Authorization: token }
+    })
+    return res;
+}
 
+// Función para DELETE request
 export const deleteDataAPI = async (url, token) => {
-    try {
-        const res = await axiosInstance.delete(`/api/${url}`, {
-            headers: { Authorization: token }
-        });
-        return res.data;
-    } catch (error) {
-        throw error;
-    }
-};
-
+    const res = await axios.delete(`${baseURL}/api/${url}`, {
+        headers: { Authorization: token }
+    })
+    return res;
+}

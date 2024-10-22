@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { POST_TYPES } from './redux/actions/postAction'
